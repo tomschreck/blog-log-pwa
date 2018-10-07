@@ -1,0 +1,21 @@
+@import './variables';
+@import './parts/common';
+@import './parts/forms';
+@import './parts/grid';
+@import './parts/headers';
+@import './parts/material';
+
+body
+{
+   -webkit-user-select: none;
+   -webkit-tap-highlight-color: transparent;
+   -webkit-touch-callout: none;
+}
+
+.empty-value
+{
+	color: $gray-500;
+	font-size: 0.875rem;
+  font-style: italic;
+  font-weight: 100;
+}

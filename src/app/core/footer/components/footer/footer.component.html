@@ -1,0 +1,32 @@
+<section class="grid-container">
+  <section class="grid-x text-center">
+    <div class="cell auto">
+      <a [routerLink]="'/home'" 
+        [routerLinkActive]="'active'" 
+        [routerLinkActiveOptions]="{exact:true}">
+        <i class="fas fa-home"></i>
+        Home
+      </a>      
+    </div>
+    <div class="cell auto">
+      <a [routerLink]="'/log/create'" 
+        [routerLinkActive]="'active'" 
+        [routerLinkActiveOptions]="{exact:true}">
+        <i class="fas fa-plus-square"></i>
+        Add
+      </a>      
+    </div>
+    <div class="cell auto">
+      <a>
+        <i class="far fa-list-alt"></i>
+        Pending
+      </a>
+    </div>
+    <div class="cell auto">
+      <a>
+        <i class="fas fa-headphones"></i>
+        Another...
+      </a>
+    </div>    
+  </section>
+</section>

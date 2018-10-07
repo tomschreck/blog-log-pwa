@@ -1,0 +1,16 @@
+@import 'variables';
+
+:host
+{
+	display: block;
+	margin-top: rem-calc(20);
+}
+
+app-button
+{
+	display: inline;
+	+ button
+	{
+		margin-left: rem-calc(18);
+	}
+}

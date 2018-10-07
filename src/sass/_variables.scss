@@ -1,0 +1,116 @@
+@import './mixins/unit';
+@import './mixins/breakpoint';
+@import './mixins/mixins';
+
+$global-font-size: 100% !default;
+
+/********************************************************
+COLORS
+********************************************************/
+$color-primary:         #007f3f !default;
+$color-primary-hover:	  #004C26 !default;
+$color-secondary:		  	#000 !default;
+$color-secondary-hover: #025e30 !default;
+$color-tertiary:        #004C26 !default;
+$color-tertiary-hover:	#2a3042 !default;
+$color-active:					#03bb5e !default;
+$color-highlight: 			chartreuse !default;
+$white:    							#fefefe !default;
+$gray-100: 							#f8f9fa !default;
+$gray-200: 							#e9ecef !default;
+$gray-300: 							#dee2e6 !default;
+$gray-400: 							#ced4da !default;
+$gray-500: 							#adb5bd !default;
+$gray-600: 							#868e96 !default;
+$gray-700: 							#495057 !default;
+$gray-800: 							#343a40 !default;
+$gray-900: 							#212529 !default;
+$gray-primary:          #282C37 !default;
+$gray-secondary:				#F3F3F3 !default;
+$gray-tool-bar:					#797E8D !default;
+$gray-tertiary:			    #313541 !default;
+$steel-gray:						#4d5775 !default;
+$black:    							#262626 !default;
+$warn:									#E91E63 !default;
+
+
+/*
+NOTE:
+ACCESS FONTS BY NAME USING 'font' FUNCTION IN _mixins
+
+font(default)   returns: normal normal 400 rem-calc(18) $font-family,
+
+FONTS
+**************************************************************************************/
+$font-family:											Roboto, sans-serif;
+
+$fonts: () !default;
+$fonts: map-merge(
+	(
+		header:       normal normal 700 rem-calc(26) $font-family,
+    subheader:    normal normal 500 rem-calc(24) $font-family,
+    default:      normal normal 400 rem-calc(18) $font-family,
+    thin:         normal normal 300 rem-calc(24) $font-family
+	), $fonts);
+
+
+
+/*
+NOTE:
+ACCESS WIDTHS BY NAME USING 'width' FUNCTION IN _mixins
+
+width(page)   returns rem-calc(1200)
+
+WIDTHS
+**************************************************************************************/
+$widths: () !default;
+$widths: map-merge(
+	(
+		page:								rem-calc(1200),		//75rem
+		header:							rem-calc(960),		//60rem
+		narrow:							rem-calc(864),		//54rem
+		form:  							rem-calc(720),		//45rem
+		oops:								rem-calc(320)			//20rem
+	), $widths);   
+
+
+
+
+/*
+NOTE:
+ACCESS HEIGHTS BY NAME USING 'height' FUNCTION IN _mixins
+
+height(default)   returns rem-calc(1200)
+
+HEIGHTS
+**************************************************************************************/
+$heights: () !default;
+$heights: map-merge(
+	(
+		nav-header:											rem-calc(50),			//2.75rem
+	), $heights);
+
+
+
+/*
+NOTE:
+ACCESS BORDER BY NAME USING 'border' FUNCTION IN _functions
+
+border(default)   returns rem-calc(0.5) solid $gray-400
+
+BORDERS
+**************************************************************************************/
+$borders: () !default;
+$borders: map-merge((
+	default:  				rem-calc(0.5) solid $gray-400,
+	dashed:  					rem-calc(0.5) dashed $gray-400,
+	dotted:  					rem-calc(0.5) dotted $gray-400,
+	dark:  						rem-calc(0.5) solid $gray-700,
+	clickable:				rem-calc(0.5) solid $color-highlight,
+	think-dark: 			rem-calc(2) solid $gray-700,
+	think-light: 			rem-calc(2) solid $gray-300,
+	focus:						rem-calc(4) solid color(blue),
+	valid:						rem-calc(4) solid color(success),
+	invalid:					rem-calc(4) solid color(danger),
+	required:					rem-calc(4) solid color(primary)	
+), $borders);	

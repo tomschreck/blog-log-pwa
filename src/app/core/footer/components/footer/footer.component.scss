@@ -1,0 +1,31 @@
+@import 'variables';
+
+:host
+{
+  display: block;
+}
+
+svg
+{
+  display: block;
+  margin: auto;
+}
+
+a
+{
+  &:hover
+  {
+  }
+
+  &.active
+  {
+
+    &:hover
+    {
+    }    
+
+      svg
+      {
+      }    
+  }
+}

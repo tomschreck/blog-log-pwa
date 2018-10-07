@@ -1,0 +1,23 @@
+<section class="grid-container">
+	<section class="grid-x align-middle text-center">
+		<div class="cell shrink">
+			<a class="nav-toggle" [class.active]="(IsMenuActive)" (click)="onToggleSlideout()">
+				<span></span>
+			</a>
+		</div>
+		<div class="cell shrink">
+			<a class="nav-label menu" (click)="onToggleSlideout()">
+				Menu
+			</a>
+		</div>
+		<div class="cell auto">
+			<a (click)="onGoHomeClick()">
+				<h1 class="logo">Blog Log</h1>
+			</a>
+		</div>  
+		<div class="cell shrink">
+			<a class="nav-label">
+				<i class="fas fa-search"></i>			</a>
+		</div>  
+	</section>  
+</section>

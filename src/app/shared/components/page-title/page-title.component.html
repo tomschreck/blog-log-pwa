@@ -1,0 +1,12 @@
+<section class="grid-container">
+  <div class="grid-x grid-padding-x align-middle">
+    <div class="cell " *ngIf="PageTitle" [ngClass]="{'small-3-half': hasContent }">
+      <h2 class="page-title">
+        {{PageTitle}}
+      </h2>
+    </div>
+    <div #wrapper class="cell auto">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</section>

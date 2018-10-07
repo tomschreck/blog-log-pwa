@@ -1,0 +1,17 @@
+@import 'variables';
+
+:host
+{
+  display: block;
+}
+
+
+label
+{
+  display: block;
+}
+
+.button-container
+{
+  margin-top: rem-calc(16);
+}

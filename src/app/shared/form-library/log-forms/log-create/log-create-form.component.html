@@ -1,0 +1,149 @@
+  <mat-horizontal-stepper linear>
+
+    <!-- WORKING TITLE & TYPE -->
+    <mat-step [stepControl]="dataEntryForm1">
+      <form [formGroup]="dataEntryForm1 "novalidate autocomplete="off">
+        <ng-template matStepLabel>Fill out your name</ng-template>
+
+        <section class="grid-container">
+          <section class="grid-y grid-padding-y">
+
+            <!-- WorkingTitle -->
+            <div class="cell">
+              <mat-form-field>
+                <input matInput autocomplete="off" appAutofocus placeholder="working title" formControlName="WorkingTitle" required>
+                <mat-error *ngIf="dataEntryForm1.controls['WorkingTitle'].hasError('required') || dataEntryForm1.controls['WorkingTitle'].hasError('whitespace')">
+                  working title is required
+                </mat-error>        
+              </mat-form-field>    
+            </div>
+
+            <!-- BlogType -->
+            <div class="cell">
+              <label>Blog Type</label>
+              <mat-button-toggle-group name="blogType" formControlName="BlogType" [value]="dataEntryForm1.controls['BlogType'].value" aria-label="Blog Type">
+                <mat-button-toggle [value]="blogTypeEnum.Travel">Travel</mat-button-toggle>
+                <mat-button-toggle [value]="blogTypeEnum.Eat">Eat</mat-button-toggle>
+                <mat-button-toggle [value]="blogTypeEnum.Relax">Relax</mat-button-toggle>
+              </mat-button-toggle-group>
+            </div>
+
+            <div class="cell text-right button-container">
+              <button mat-raised-button type="button" matStepperNext>Next</button>
+            </div>
+          </section>
+        </section>
+
+      </form>
+    </mat-step>
+
+
+    <!-- DESCRIPTIONS -->
+    <mat-step [stepControl]="dataEntryForm2">
+      <form [formGroup]="dataEntryForm2 "novalidate autocomplete="off">
+        <ng-template matStepLabel>Fill out your name</ng-template>
+
+        <section class="grid-container">
+          <section class="grid-y grid-padding-y">
+
+            <!-- ShortDescription -->
+            <div class="cell">
+              <mat-form-field>
+                <textarea matInput placeholder="short description" formControlName="ShortDescription" required></textarea>
+
+                <mat-error *ngIf="dataEntryForm2.controls['ShortDescription'].hasError('required') || dataEntryForm2.controls['ShortDescription'].hasError('whitespace')">
+                  short description is required
+                </mat-error>        
+              </mat-form-field>
+            </div>
+
+            <!-- LongDescription -->
+            <div class="cell">
+              <mat-form-field>
+                <textarea matInput placeholder="long description" formControlName="LongDescription"></textarea>       
+              </mat-form-field>
+            </div>
+
+            <div class="cell text-right button-container">
+              <button mat-button matStepperPrevious type="button">Back</button>
+              <button mat-raised-button type="button" matStepperNext>Next</button>
+            </div>            
+          </section>
+        </section>
+
+      </form>
+    </mat-step>
+
+
+
+    <!-- TAG & IMAGE LIST -->
+    <mat-step [stepControl]="dataEntryForm3">
+      <form [formGroup]="dataEntryForm3 "novalidate autocomplete="off">
+        <ng-template matStepLabel>Fill out your name</ng-template>
+
+        <section class="grid-container">
+          <section class="grid-y grid-padding-y">
+
+            <!-- TagList -->
+            <div class="cell">
+              <mat-form-field>
+                <textarea matInput placeholder="tag list" formControlName="TagList"></textarea>      
+              </mat-form-field>
+            </div>
+
+            <!-- ImageList -->
+            <div class="cell">
+              <input type="file" accept="image/*" id="file-input" multiple>
+            </div>
+
+            <div class="cell text-right button-container">
+              <button mat-button matStepperPrevious type="button">Back</button>
+              <button mat-raised-button type="button">Save Log</button>
+            </div>               
+          </section>
+        </section>
+
+      </form>
+    </mat-step>
+
+  </mat-horizontal-stepper>
+
+
+
+
+  
+<!-- <section class="grid-y">
+
+		<div class="cell">
+
+			<div class="margin-20">
+				<h3>Form 1</h3>
+				<pre>Is form valid: {{dataEntryForm1.valid | json}}</pre>
+				<pre>form values: <br>{{dataEntryForm1.value | json}}</pre>
+			</div>
+
+		</div>
+
+
+		<div class="cell">
+
+			<div class="margin-20">
+				<h3>Form 2</h3>
+				<pre>Is form valid: {{dataEntryForm2.valid | json}}</pre>
+				<pre>form values: <br>{{dataEntryForm2.value | json}}</pre>
+			</div>
+
+		</div>
+
+
+		<div class="cell">
+
+			<div class="margin-20">
+				<h3>Form 3</h3>
+				<pre>Is form valid: {{dataEntryForm3.valid | json}}</pre>
+				<pre>form values: <br>{{dataEntryForm3.value | json}}</pre>
+			</div>
+
+		</div>        
+	</section>  -->
+  

@@ -1,0 +1,14 @@
+<section class="grid-x align-right" style="height: 100%;">
+  <div class="cell shrink">
+
+    <app-button [text]="'Cancel'" 
+                [fontSet]="'fas'" 
+                [fontIcon]="'fa-undo'" 
+                (onClick)="onCancelForm()"
+                *ngIf="(IsCancelVisible)"></app-button>
+
+
+    <button mat-raised-button type="submit" [disabled]="isNotDisabled">{{submitButtonText}}</button>
+    
+  </div>  
+</section>
