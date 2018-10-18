@@ -6,10 +6,15 @@ import { environment } from '@env/environment';
 })
 export class UrlHelperService
 {
-  // ORCHARD USER
-  public static GetPostLogUrl(): string
+  // BLOG
+  public static GetPostBlogUrl(): string
   {
     return `${environment.API.URL}`;
   }
 
+  // PENDING BLOG LIST
+  public static GetPendingBlogListUrl(): string
+  {
+    return `${environment.API.URL}/pending-blog-list`;
+  }
 }

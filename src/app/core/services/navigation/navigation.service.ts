@@ -11,7 +11,7 @@ export class NavigationService
   ROUTES =
   {
     Home: '/home',
-    Log: '/log',
+    Blog: '/blog',
     Login: '/login',
     Logout: '/logout',
     NoPage404: '/404'
@@ -23,6 +23,7 @@ export class NavigationService
   )
   {
   }
+
 
   // LOGOUT
   GoToLogOutPage()
@@ -40,20 +41,20 @@ export class NavigationService
   }
 
 
-  // CONTACTS
-  GoToLogListPage()
+  // BLOG
+  GoToBlogListPage()
   {
-    const url = `${this.ROUTES.Log}`;
+    const url = `${this.ROUTES.Blog}`;
     this.router.navigate([ url ]);
   }
-  GoToLogDetailPage(id: number)
+  GoToBlogDetailPage(id: number)
   {
-    const url = `${this.ROUTES.Log}/${id}`;
+    const url = `${this.ROUTES.Blog}/${id}`;
     this.router.navigate([ url ], this.defaultNavigationExtras);
   }
-  GoToLogCreatePage()
+  GoToBlogCreatePage()
   {
-    const url = `${this.ROUTES.Log}/create`;
+    const url = `${this.ROUTES.Blog}/create`;
     this.router.navigate([ url ], this.defaultNavigationExtras);
   }
 }

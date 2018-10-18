@@ -1,6 +1,6 @@
 import { BlogTypeEnum } from '@app/models/blog/blog-type.enum';
 
-export class LogCreateModel
+export class BlogCreateModel
 {
   Title: string;
   BlogType: BlogTypeEnum = BlogTypeEnum.Travel;

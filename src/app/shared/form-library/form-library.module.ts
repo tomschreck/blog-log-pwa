@@ -9,7 +9,7 @@ import { MaterialModule } from '@app/material/material.module';
 
 // COMPONENTS
 import { FormButtonsComponent } from '@app/shared/form-library/form-buttons/form-buttons.component';
-import { LogCreateFormComponent } from '@app/shared/form-library/log-forms/log-create/log-create-form.component';
+import { BlogCreateFormComponent } from '@app/shared/form-library/blog-forms/blog-create/blog-create-form.component';
 
 // 3rd PARTY
 import { EditorModule } from '@tinymce/tinymce-angular';
@@ -30,11 +30,11 @@ import { EditorModule } from '@tinymce/tinymce-angular';
   declarations:
   [
     FormButtonsComponent,
-    LogCreateFormComponent
+    BlogCreateFormComponent
   ],
   exports:
   [
-    LogCreateFormComponent
+    BlogCreateFormComponent
   ]
 })
 export class FormLibraryModule { }

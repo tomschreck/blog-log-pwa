@@ -16,7 +16,7 @@ const routes: Routes =
   },
   {
     path: 'home',
-    loadChildren: './features/home/home.module#HomeModule',
+    loadChildren: './features/blog/blog.module#BlogModule',
     data: { title: 'Home' },
     // canActivate: [ IsAuthenticatedAndHasARoleGuard ]
   },
@@ -41,8 +41,8 @@ const routes: Routes =
 
   // LAZY LOADED:
   {
-    path: 'log',
-    loadChildren: './features/log/log.module#LogModule',
+    path: 'blog',
+    loadChildren: './features/blog/blog.module#BlogModule',
     // canActivate: [ IsAuthenticatedAndHasARoleGuard ]
   },
 

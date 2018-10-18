@@ -9,7 +9,7 @@ export class PageTitleComponent implements OnInit, AfterContentInit
 {
   hasContent = false;
 
-  @Input('page-title') PageTitle: string;
+  @Input() pageTitle: string;
   @ViewChild('wrapper') wrapper: ElementRef;
 
   constructor() { }

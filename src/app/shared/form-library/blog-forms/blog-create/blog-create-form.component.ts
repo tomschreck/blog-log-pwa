@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { LogCreateModel } from '@app/models/log/log-create-model';
+import { BlogCreateModel } from '@app/models/blog/blog-create.model';
 import { NoWhitespaceValidator } from '@app/shared/form-library/validators/no-white-space/no-whitespace.validator';
 import { BlogTypeEnum } from '@app/models/blog/blog-type.enum';
 import { IImage } from '@app/core/services/image-compressor/image.model';
@@ -9,11 +9,11 @@ import { ImageUtilityService } from '@app/core/services/image-compressor/ImageUt
 import { MatChipInputEvent } from '@angular/material';
 
 @Component({
-  selector: 'app-log-create-form',
-  templateUrl: './log-create-form.component.html',
-  styleUrls: [ './log-create-form.component.scss' ]
+  selector: 'app-blog-create-form',
+  templateUrl: './blog-create-form.component.html',
+  styleUrls: [ './blog-create-form.component.scss' ]
 })
-export class LogCreateFormComponent implements OnInit, OnDestroy
+export class BlogCreateFormComponent implements OnInit, OnDestroy
 {
   dataEntryForm1: FormGroup;
   dataEntryForm2: FormGroup;
@@ -23,8 +23,8 @@ export class LogCreateFormComponent implements OnInit, OnDestroy
 
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
-  @Input() logCreateModel: LogCreateModel;
-  @Output('onFormSubmit') formSubmitEventEmitter: EventEmitter<LogCreateModel> = new EventEmitter<LogCreateModel>();
+  @Input() blogCreateModel: BlogCreateModel;
+  @Output('onFormSubmit') formSubmitEventEmitter: EventEmitter<BlogCreateModel> = new EventEmitter<BlogCreateModel>();
   @Output('onFormCancel') cancelFormEventEmitter: EventEmitter<void> = new EventEmitter();
 
   constructor
@@ -56,19 +56,19 @@ export class LogCreateFormComponent implements OnInit, OnDestroy
     {
       if (this.formSubmitEventEmitter.observers.length > 0)
       {
-        const logCreateModel: LogCreateModel = new LogCreateModel();
-        logCreateModel.Title = this.dataEntryForm1.controls.Title.value;
-        logCreateModel.BlogType = this.dataEntryForm1.controls.BlogType.value;
-        logCreateModel.ShortDescription = this.dataEntryForm2.controls.ShortDescription.value;
-        logCreateModel.LongDescription = this.dataEntryForm2.controls.LongDescription.value;
-        logCreateModel.TagList = this.dataEntryForm2.controls.TagList.value;
+        const blogCreateModel: BlogCreateModel = new BlogCreateModel();
+        blogCreateModel.Title = this.dataEntryForm1.controls.Title.value;
+        blogCreateModel.BlogType = this.dataEntryForm1.controls.BlogType.value;
+        blogCreateModel.ShortDescription = this.dataEntryForm2.controls.ShortDescription.value;
+        blogCreateModel.LongDescription = this.dataEntryForm2.controls.LongDescription.value;
+        blogCreateModel.TagList = this.dataEntryForm2.controls.TagList.value;
 
         if (this.processedImageList && this.processedImageList.length > 0)
         {
-          logCreateModel.ImageList = this.processedImageList.map((item: IImage) => item.file);
+          blogCreateModel.ImageList = this.processedImageList.map((item: IImage) => item.file);
         }
 
-        this.formSubmitEventEmitter.emit(logCreateModel);
+        this.formSubmitEventEmitter.emit(blogCreateModel);
       }
     }
   }
@@ -151,19 +151,19 @@ export class LogCreateFormComponent implements OnInit, OnDestroy
 
   private initializeDataEntryForm()
   {
-    this.logCreateModel = this.logCreateModel || new LogCreateModel();
+    this.blogCreateModel = this.blogCreateModel || new BlogCreateModel();
 
     this.dataEntryForm1 = this.formBuilder.group
       ({
-        Title: [ this.logCreateModel.Title, Validators.compose([ Validators.required, NoWhitespaceValidator ]) ],
-        BlogType: [ this.logCreateModel.BlogType, Validators.compose([ Validators.required ]) ],
+        Title: [ this.blogCreateModel.Title, Validators.compose([ Validators.required, NoWhitespaceValidator ]) ],
+        BlogType: [ this.blogCreateModel.BlogType, Validators.compose([ Validators.required ]) ],
       });
 
     this.dataEntryForm2 = this.formBuilder.group
       ({
-        ShortDescription: [ this.logCreateModel.ShortDescription ],
-        LongDescription: [ this.logCreateModel.LongDescription ],
-        TagList: [ this.logCreateModel.TagList ]
+        ShortDescription: [ this.blogCreateModel.ShortDescription ],
+        LongDescription: [ this.blogCreateModel.LongDescription ],
+        TagList: [ this.blogCreateModel.TagList ]
       });
   }
 }

@@ -1,0 +1,24 @@
+@import 'variables';
+
+:host
+{
+  display: block;
+}
+
+.mat-card-title
+{
+  font: font(subheader);
+  font-size: rem-calc(18);
+}
+
+.tag-item
+{
+  background-color: $color-primary;
+  border-radius: rem-calc(5);
+  color: $white;  
+  display: inline-block;
+  font: font(thin);
+  font-size: rem-calc(12);
+  margin-right: rem-calc(12);
+  padding: rem-calc(2) rem-calc(10);
+}
