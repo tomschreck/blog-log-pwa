@@ -1,19 +1,19 @@
   <mat-horizontal-stepper linear>
 
-    <!-- WORKING TITLE & TYPE -->
+    <!-- TITLE & TYPE -->
     <mat-step [stepControl]="dataEntryForm1">
       <form [formGroup]="dataEntryForm1 "novalidate autocomplete="off">
-        <ng-template matStepLabel>Fill out your name</ng-template>
+        <ng-template matStepLabel>Title</ng-template>
 
         <section class="grid-container">
           <section class="grid-y grid-padding-y">
 
-            <!-- WorkingTitle -->
+            <!-- Title -->
             <div class="cell">
               <mat-form-field>
-                <input matInput autocomplete="off" appAutofocus placeholder="working title" formControlName="WorkingTitle" required>
-                <mat-error *ngIf="dataEntryForm1.controls['WorkingTitle'].hasError('required') || dataEntryForm1.controls['WorkingTitle'].hasError('whitespace')">
-                  working title is required
+                <input matInput autocomplete="off" appAutofocus placeholder="title" formControlName="Title" required>
+                <mat-error *ngIf="dataEntryForm1.controls['Title'].hasError('required') || dataEntryForm1.controls['Title'].hasError('whitespace')">
+                  title is required
                 </mat-error>        
               </mat-form-field>    
             </div>
@@ -29,7 +29,7 @@
             </div>
 
             <div class="cell text-right button-container">
-              <button mat-raised-button type="button" matStepperNext>Next</button>
+              <button mat-raised-button type="button" [disabled]="!dataEntryForm1.valid" matStepperNext>Next</button>
             </div>
           </section>
         </section>
@@ -38,13 +38,13 @@
     </mat-step>
 
 
-    <!-- DESCRIPTIONS -->
+    <!-- DESCRIPTIONS & TAGS -->
     <mat-step [stepControl]="dataEntryForm2">
       <form [formGroup]="dataEntryForm2 "novalidate autocomplete="off">
-        <ng-template matStepLabel>Fill out your name</ng-template>
+        <ng-template matStepLabel>About</ng-template>
 
         <section class="grid-container">
-          <section class="grid-y grid-padding-y">
+          <section class="grid-y grid-padding-y-bottom">
 
             <!-- ShortDescription -->
             <div class="cell">
@@ -59,15 +59,33 @@
 
             <!-- LongDescription -->
             <div class="cell">
+              <editor formControlName="LongDescription" apiKey="y40c23sjmnzx2i6c4gvjat7sgm2h92vc60rh2b3rzmijhrxn" [init]="editorInit"></editor>
+            </div>
+
+            <!-- TagList -->
+            <div class="cell">
+              <!-- <mat-form-field>
+                <textarea matInput placeholder="tag list" formControlName="TagList"></textarea>      
+              </mat-form-field> -->
               <mat-form-field>
-                <textarea matInput placeholder="long description" formControlName="LongDescription"></textarea>       
-              </mat-form-field>
+                <mat-chip-list #chipList>
+                  <mat-chip *ngFor="let item of logCreateModel.TagList" (removed)="removeTagItem(item)">
+                    {{item}}
+                    <mat-icon matChipRemove>cancel</mat-icon>
+                  </mat-chip>
+                  <input placeholder="tag list..."
+                        [matChipInputFor]="chipList"
+                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                        [matChipInputAddOnBlur]="true"
+                        (matChipInputTokenEnd)="addTagItem($event)">
+                </mat-chip-list>
+              </mat-form-field>              
             </div>
 
             <div class="cell text-right button-container">
               <button mat-button matStepperPrevious type="button">Back</button>
-              <button mat-raised-button type="button" matStepperNext>Next</button>
-            </div>            
+              <button mat-raised-button type="button" [disabled]="!dataEntryForm2.valid" matStepperNext>Next</button>
+            </div>
           </section>
         </section>
 
@@ -76,74 +94,67 @@
 
 
 
-    <!-- TAG & IMAGE LIST -->
-    <mat-step [stepControl]="dataEntryForm3">
-      <form [formGroup]="dataEntryForm3 "novalidate autocomplete="off">
-        <ng-template matStepLabel>Fill out your name</ng-template>
+    <!-- IMAGE LIST -->
+    <mat-step>
+      <ng-template matStepLabel>Photos</ng-template>
 
-        <section class="grid-container">
-          <section class="grid-y grid-padding-y">
+      <section class="grid-container">
+        <section class="grid-y grid-padding-y">
 
-            <!-- TagList -->
-            <div class="cell">
-              <mat-form-field>
-                <textarea matInput placeholder="tag list" formControlName="TagList"></textarea>      
-              </mat-form-field>
-            </div>
+          <!-- Select Images Button -->
+          <div class="cell">
+            <input type="file" accept="image/*" #fileInput id="file-input" multiple (change)="onImagesSelected($event)">
+            <button mat-raised-button color="primary" (click)="fileInput.click()">Select Photo(s)</button>
+            <button mat-button color="primary" (click)="onResetFileSelection()" *ngIf="processedImageList">reset</button>
+          </div>            
 
-            <!-- ImageList -->
-            <div class="cell">
-              <input type="file" accept="image/*" id="file-input" multiple>
-            </div>
 
-            <div class="cell text-right button-container">
-              <button mat-button matStepperPrevious type="button">Back</button>
-              <button mat-raised-button type="button">Save Log</button>
-            </div>               
-          </section>
+          <!-- ImageList -->
+          <div class="cell text-center" *ngIf="processedImageList">
+            <label>{{processedImageList.length}} photos selected:</label>
+            
+            <div class="image-container" *ngFor="let item of processedImageList">
+              <div class="image" [ngStyle]="{'background-image': 'url(' + item.imageDataUrl + ')'}"></div>
+              <mat-checkbox [checked]="true" (click)="onRemoveImageClick(item)"></mat-checkbox>
+            </div>     
+          </div>
+
+
+          <!-- SAVE LOG -->
+          <div class="cell text-right button-container">
+            <button mat-button matStepperPrevious type="button">Back</button>
+            <button mat-raised-button type="button" [disabled]="!processedImageList" (click)="onFormSubmit()">Save Log</button>
+          </div>   
+
         </section>
-
-      </form>
+      </section>
+      
     </mat-step>
 
   </mat-horizontal-stepper>
 
-
-
-
   
 <!-- <section class="grid-y">
 
-		<div class="cell">
+  <div class="cell">
 
-			<div class="margin-20">
-				<h3>Form 1</h3>
-				<pre>Is form valid: {{dataEntryForm1.valid | json}}</pre>
-				<pre>form values: <br>{{dataEntryForm1.value | json}}</pre>
-			</div>
+    <div class="margin-20">
+      <h3>Form 1</h3>
+      <pre>Is form valid: {{dataEntryForm1.valid | json}}</pre>
+      <pre>form values: <br>{{dataEntryForm1.value | json}}</pre>
+    </div>
 
-		</div>
-
-
-		<div class="cell">
-
-			<div class="margin-20">
-				<h3>Form 2</h3>
-				<pre>Is form valid: {{dataEntryForm2.valid | json}}</pre>
-				<pre>form values: <br>{{dataEntryForm2.value | json}}</pre>
-			</div>
-
-		</div>
+  </div>
 
 
-		<div class="cell">
+  <div class="cell">
 
-			<div class="margin-20">
-				<h3>Form 3</h3>
-				<pre>Is form valid: {{dataEntryForm3.valid | json}}</pre>
-				<pre>form values: <br>{{dataEntryForm3.value | json}}</pre>
-			</div>
+    <div class="margin-20">
+      <h3>Form 2</h3>
+      <pre>Is form valid: {{dataEntryForm2.valid | json}}</pre>
+      <pre>form values: <br>{{dataEntryForm2.value | json}}</pre>
+    </div>
 
-		</div>        
-	</section>  -->
-  
+  </div>
+    
+</section> -->

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LogCreateModel } from '@app/models/log/log-create-model';
+import { LogService } from '@app/features/log/services/log-service/log.service';
+import { NavigationService } from '@app/core/services/navigation/navigation.service';
 
 @Component({
   selector: 'app-log-create',
@@ -9,7 +11,13 @@ import { LogCreateModel } from '@app/models/log/log-create-model';
 export class LogCreateComponent implements OnInit
 {
 
-  constructor() { }
+  constructor
+  (
+    private logService: LogService,
+    private navigationService: NavigationService
+  )
+  {
+  }
 
   ngOnInit()
   {
@@ -17,11 +25,20 @@ export class LogCreateComponent implements OnInit
 
   onFormSubmit(logCreateModel: LogCreateModel)
   {
-    console.log('DAS LOG:', logCreateModel);
+    // console.log('DAS LOG:', logCreateModel);
+
+    this.logService.CreateLog(logCreateModel)
+        .subscribe
+        (
+          () =>
+          {
+            this.navigationService.GoToHomePage();
+          }
+        );
   }
 
   onFormCancel()
   {
+    this.navigationService.GoToHomePage();
   }
-
 }

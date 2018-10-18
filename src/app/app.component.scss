@@ -10,13 +10,14 @@ app-header
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;  
+  right: 0;
+  z-index: 10;  
 }
 
-router-outlet
+.page-wrapper
 {
-  display: block;
   margin-top: height(nav-header);
+  margin-bottom: height(page-bottom-offset);
 }
 
 app-footer

@@ -15,3 +15,55 @@ label
 {
   margin-top: rem-calc(16);
 }
+
+#file-input
+{
+  display: none;
+}
+
+
+.image-container
+{
+  position: relative;
+  height: rem-calc(175);
+
+  > .image
+  {
+    background-position:center;    
+    background-repeat:no-repeat;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.mat-checkbox
+{ 
+  position: absolute; 
+  bottom: 10px; 
+  right: 10px; 
+}
+
+.thumb
+{
+  height: 100%;
+  width: 100%;
+}
+
+::ng-deep
+{
+  .mat-horizontal-content-container
+  {
+    height: 100vh;
+  }
+
+  .tinymce-mobile-outer-container:not(.tinymce-mobile-fullscreen-maximized) .tinymce-mobile-editor-socket
+  {
+    height: 200px !important;
+  }
+
+  iframe
+  {
+    height: 100% !important;
+  }
+}

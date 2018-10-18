@@ -1,0 +1,19 @@
+@import 'variables';
+
+:host
+{
+	display: none;
+	position: fixed;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	top: 0;
+	z-index: 1000;
+	padding-top: 60%;
+	background-color: rgba(0,0,0,0.3);	
+
+	&.active
+	{
+		display: block;
+	}
+}

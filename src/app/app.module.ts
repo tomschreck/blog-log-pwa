@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,6 +14,9 @@ import { CoreModule } from '@app/core/core.module';
 import { Four04Module } from '@app/features/four04/four04.module';
 import { MaterialModule } from '@app/material/material.module';
 import { SharedModule } from '@app/shared/shared.module';
+
+// interceptors
+import { SpinnerInterceptor } from '@core/interceptors/spinner.interceptor';
 
 // 3rd PARTY
 import { NgxModelModule } from 'ngx-model';
@@ -56,6 +59,16 @@ import { ToastrModule } from 'ngx-toastr';
     ],
   providers:
     [
+      {
+        provide: HTTP_INTERCEPTORS,
+        useClass: SpinnerInterceptor,
+        multi: true
+      },
+      // {
+      //   provide: HTTP_INTERCEPTORS,
+      //   useClass: TokenInterceptor,
+      //   multi: true
+      // }
     ],
   bootstrap:
     [

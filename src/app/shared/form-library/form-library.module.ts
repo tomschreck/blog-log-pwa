@@ -11,6 +11,8 @@ import { MaterialModule } from '@app/material/material.module';
 import { FormButtonsComponent } from '@app/shared/form-library/form-buttons/form-buttons.component';
 import { LogCreateFormComponent } from '@app/shared/form-library/log-forms/log-create/log-create-form.component';
 
+// 3rd PARTY
+import { EditorModule } from '@tinymce/tinymce-angular';
 
 @NgModule({
   imports:
@@ -20,7 +22,10 @@ import { LogCreateFormComponent } from '@app/shared/form-library/log-forms/log-c
     DirectivesModule,
     FormsModule,
     ReactiveFormsModule,
-    MaterialModule
+    MaterialModule,
+
+    // 3rd PARTY
+    EditorModule
   ],
   declarations:
   [

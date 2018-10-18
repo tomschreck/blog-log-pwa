@@ -2,7 +2,10 @@
 
 :host
 {
+  background-color: $white;
+  border-top: border(default);
   display: block;
+  padding: rem-calc(10) 0;
 }
 
 svg

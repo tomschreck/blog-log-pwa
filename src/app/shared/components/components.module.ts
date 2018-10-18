@@ -4,20 +4,25 @@ import { ButtonModule } from '@app/shared/components/button/button.module';
 
 // COMPONENTS
 import { PageTitleComponent } from '@app/shared/components/page-title/page-title.component';
+import { SpinnerComponent } from '@app/shared/components/spinner/spinner.component';
+import { MaterialModule } from '@app/material/material.module';
 
 @NgModule({
   imports:
   [
     ButtonModule,
-    CommonModule
+    CommonModule,
+    MaterialModule
   ],
   declarations:
   [
-    PageTitleComponent
+    PageTitleComponent,
+    SpinnerComponent
   ],
   exports:
   [
-    PageTitleComponent
+    PageTitleComponent,
+    SpinnerComponent
   ]
 })
 export class ComponentsModule { }
