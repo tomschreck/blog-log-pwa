@@ -3,12 +3,32 @@
 :host
 {
   display: block;
+  width: rem-calc(350);
+  
+  @include breakpoint(small)
+  {
+    margin: auto;
+    margin-top: rem-calc(20);
+    margin-bottom: rem-calc(20);
+  }
+
+  @include breakpoint(medium up)
+  {
+    margin: rem-calc(16);
+    float: left;
+  }
 }
 
 .mat-card-title
 {
   font: font(subheader);
   font-size: rem-calc(18);
+}
+
+.short-description
+{
+  height: rem-calc(75);
+  overflow: hidden;  
 }
 
 .tag-item

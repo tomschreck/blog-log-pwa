@@ -3,15 +3,18 @@
     <mat-card-title>{{blogModel.title}}</mat-card-title>
     <mat-card-subtitle>{{blogModel.blogTypeName}}</mat-card-subtitle>
   </mat-card-header>
-  <img mat-card-image [src]="blogModel.thumbNailUrl">
-  <mat-card-content>
+
+  <!-- <app-image [mediaAssetModel]="blogModel.defaultMediaAssetModel"></app-image> -->
+  <app-image-slider [blogModel]="blogModel"></app-image-slider>
+  
+  <mat-card-content class="short-description">
     <p>{{blogModel.shortDescription}}</p>
   </mat-card-content>
   <mat-card-content>
     <span class="tag-item" *ngFor="let item of blogModel.tagList">{{item}}</span>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-button>Details</button>
+    <button mat-button (click)="GoToBlogDetailPage()">Details</button>
     <button mat-button>Edit</button>
     <button mat-button>Publish</button>
   </mat-card-actions>

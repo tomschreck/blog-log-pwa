@@ -1,12 +1,14 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { BlogCreateModel } from '@app/models/blog/blog-create.model';
 import { NoWhitespaceValidator } from '@app/shared/form-library/validators/no-white-space/no-whitespace.validator';
+import { MatChipInputEvent } from '@angular/material';
+
 import { BlogTypeEnum } from '@app/models/blog/blog-type.enum';
+import { BlogCreateModel } from '@app/models/blog/blog-create.model';
+
 import { IImage } from '@app/core/services/image-compressor/image.model';
 import { ImageUtilityService } from '@app/core/services/image-compressor/ImageUtilityService';
-import { MatChipInputEvent } from '@angular/material';
 
 @Component({
   selector: 'app-blog-create-form',
@@ -44,6 +46,16 @@ export class BlogCreateFormComponent implements OnInit, OnDestroy
         theme: 'mobile',
         plugins: [ 'autosave', 'lists', 'autolink' ]
       }};
+
+    if (navigator.geolocation)
+    {
+      navigator.geolocation.getCurrentPosition((position) =>
+      {
+        // console.log('CURRENT POSITION:', position);
+        this.blogCreateModel.Latitude = position.coords.latitude;
+        this.blogCreateModel.Longitude = position.coords.longitude;
+      });
+    }
   }
 
   ngOnDestroy()
@@ -56,19 +68,20 @@ export class BlogCreateFormComponent implements OnInit, OnDestroy
     {
       if (this.formSubmitEventEmitter.observers.length > 0)
       {
-        const blogCreateModel: BlogCreateModel = new BlogCreateModel();
-        blogCreateModel.Title = this.dataEntryForm1.controls.Title.value;
-        blogCreateModel.BlogType = this.dataEntryForm1.controls.BlogType.value;
-        blogCreateModel.ShortDescription = this.dataEntryForm2.controls.ShortDescription.value;
-        blogCreateModel.LongDescription = this.dataEntryForm2.controls.LongDescription.value;
-        blogCreateModel.TagList = this.dataEntryForm2.controls.TagList.value;
+        this.blogCreateModel.Title = this.dataEntryForm1.controls.Title.value;
+        this.blogCreateModel.BlogType = this.dataEntryForm1.controls.BlogType.value;
+        this.blogCreateModel.ShortDescription = this.dataEntryForm2.controls.ShortDescription.value;
+        this.blogCreateModel.LongDescription = this.dataEntryForm2.controls.LongDescription.value;
+        this.blogCreateModel.TagList = this.dataEntryForm2.controls.TagList.value;
 
         if (this.processedImageList && this.processedImageList.length > 0)
         {
-          blogCreateModel.ImageList = this.processedImageList.map((item: IImage) => item.file);
+          this.blogCreateModel.ImageList = this.processedImageList.map((item: IImage) => item.file);
         }
 
-        this.formSubmitEventEmitter.emit(blogCreateModel);
+        // console.log('BLOG CREATE MODEL:', this.blogCreateModel);
+
+        this.formSubmitEventEmitter.emit(this.blogCreateModel);
       }
     }
   }
@@ -148,6 +161,7 @@ export class BlogCreateFormComponent implements OnInit, OnDestroy
       this.dataEntryForm2.controls.TagList.patchValue(existingTagList);
     }
   }
+
 
   private initializeDataEntryForm()
   {

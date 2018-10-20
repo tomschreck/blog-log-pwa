@@ -15,10 +15,13 @@ import { Four04Module } from '@app/features/four04/four04.module';
 import { MaterialModule } from '@app/material/material.module';
 import { SharedModule } from '@app/shared/shared.module';
 
+import { CONFIG } from '@env/configuration';
+
 // interceptors
 import { SpinnerInterceptor } from '@core/interceptors/spinner.interceptor';
 
 // 3rd PARTY
+import { AgmCoreModule } from '@agm/core';
 import { NgxModelModule } from 'ngx-model';
 import { ToastrModule } from 'ngx-toastr';
 
@@ -39,9 +42,10 @@ import { ToastrModule } from 'ngx-toastr';
       SharedModule,
 
       // 3rd PARTY
+      AgmCoreModule.forRoot({ apiKey: CONFIG.KEYS.GoogleMap }),
       NgxModelModule,
       ToastrModule.forRoot
-      (
+        (
         {
           closeButton: true,
           maxOpened: 1,
@@ -51,7 +55,7 @@ import { ToastrModule } from 'ngx-toastr';
           progressAnimation: 'decreasing',
           preventDuplicates: true,
         }
-      )
+        )
     ],
   declarations:
     [

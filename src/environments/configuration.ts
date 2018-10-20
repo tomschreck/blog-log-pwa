@@ -1,5 +1,9 @@
 export const CONFIG =
   {
+    KEYS:
+    {
+      GoogleMap: 'AIzaSyB1Q58SyazwnyLc5AWicQv90_mlLtPWZpE'
+    },
     SETTINGS:
       {
         AUTO_SAVE_INTERVAL: 20000,

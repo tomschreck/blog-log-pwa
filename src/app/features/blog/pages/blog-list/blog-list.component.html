@@ -1,14 +1,4 @@
 
 <app-page-title [pageTitle]="title"></app-page-title>
 
-<section class="grid-container" *ngIf="blogService.PendingBlogListStream | async; let pendingBlogList">
-
-  <section class="grid-y grid-margin-y">
-
-    <div class="cell" *ngFor="let item of pendingBlogList">
-      <app-blog-card [blogModel]="item"></app-blog-card>
-    </div>
-
-  </section>
-
-</section>
+<app-blog-card-list [blogList]="pendingBlogList" *ngIf="blogService.PendingBlogListStream | async; let pendingBlogList"></app-blog-card-list>

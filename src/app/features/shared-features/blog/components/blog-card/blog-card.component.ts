@@ -1,5 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
+
 import { BlogModel } from '@app/models/blog/blog.model';
+
+import { NavigationService } from '@app/core/services/navigation/navigation.service';
 
 @Component({
   selector: 'app-blog-card',
@@ -10,10 +13,19 @@ export class BlogCardComponent implements OnInit
 {
   @Input() blogModel: BlogModel;
 
-  constructor() { }
+  constructor
+  (
+    private navigationService: NavigationService
+  )
+  {
+  }
 
   ngOnInit()
   {
   }
 
+  GoToBlogDetailPage()
+  {
+    this.navigationService.GoToBlogDetailPage(this.blogModel._id);
+  }
 }

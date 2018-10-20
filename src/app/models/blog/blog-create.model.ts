@@ -8,4 +8,6 @@ export class BlogCreateModel
   LongDescription: string;
   TagList: string[] = [];
   ImageList: File[] = [];
+  Latitude: number;
+  Longitude: number;
 }

@@ -17,4 +17,10 @@ export class UrlHelperService
   {
     return `${environment.API.URL}/pending-blog-list`;
   }
+
+  // PENDING BLOG LIST
+  public static GetBlogDetailUrl(id: string): string
+  {
+    return `${environment.API.URL}/${id}`;
+  }
 }

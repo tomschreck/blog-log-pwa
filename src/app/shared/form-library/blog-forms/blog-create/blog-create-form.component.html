@@ -28,6 +28,11 @@
               </mat-button-toggle-group>
             </div>
 
+            <!-- Map -->
+            <div class="cell" *ngIf="blogCreateModel.Latitude && blogCreateModel.Longitude">
+              <app-map [latitude]="blogCreateModel.Latitude" [longitude]="blogCreateModel.Longitude"></app-map> 
+            </div>
+
             <div class="cell text-right button-container">
               <button mat-raised-button type="button" [disabled]="!dataEntryForm1.valid" matStepperNext>Next</button>
             </div>

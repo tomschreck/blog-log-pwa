@@ -47,7 +47,7 @@ export class NavigationService
     const url = `${this.ROUTES.Blog}`;
     this.router.navigate([ url ]);
   }
-  GoToBlogDetailPage(id: number)
+  GoToBlogDetailPage(id: string)
   {
     const url = `${this.ROUTES.Blog}/${id}`;
     this.router.navigate([ url ], this.defaultNavigationExtras);

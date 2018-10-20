@@ -1,0 +1,8 @@
+@import 'variables';
+
+:host 
+{
+  background-color: $gray-300;
+  display: block;
+  height: rem-calc(260);
+}

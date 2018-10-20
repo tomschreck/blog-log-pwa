@@ -2,27 +2,40 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from '@app/shared/components/button/button.module';
 
+// IMPORTS
+import { MaterialModule } from '@app/material/material.module';
+import {SlideshowModule} from 'ng-simple-slideshow';
+
 // COMPONENTS
+import { ImageComponent } from './media/image/image.component';
 import { PageTitleComponent } from '@app/shared/components/page-title/page-title.component';
 import { SpinnerComponent } from '@app/shared/components/spinner/spinner.component';
-import { MaterialModule } from '@app/material/material.module';
+import { ImageSliderComponent } from './media/image-slider/image-slider.component';
 
 @NgModule({
   imports:
   [
     ButtonModule,
     CommonModule,
-    MaterialModule
+    MaterialModule,
+    SlideshowModule
   ],
   declarations:
   [
+    ImageComponent,
+    ImageSliderComponent,
     PageTitleComponent,
     SpinnerComponent
   ],
   exports:
   [
+    ImageComponent,
+    ImageSliderComponent,
     PageTitleComponent,
-    SpinnerComponent
+    SpinnerComponent,
+  ],
+  providers:
+  [
   ]
 })
 export class ComponentsModule { }

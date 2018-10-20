@@ -1,0 +1,27 @@
+<section *ngIf="blogService.BlogDetailStream | async; let blogModel">
+  <app-page-title [pageTitle]="blogModel.title"></app-page-title>
+
+  <section class="grid-container">
+    <section class="grid-y grid-margin-y">
+
+      <!-- MAP -->
+      <div class="cell">
+        <app-map [latitude]="blogModel.latitude" [longitude]="blogModel.longitude"></app-map> 
+      </div>
+
+      <!-- IMAGES -->
+      <div class="cell">
+        <app-image-slider [blogModel]="blogModel"></app-image-slider>
+      </div>
+
+      <!-- ABOUT -->
+      <div class="cell">
+        {{blogModel.shortDescription}}
+      </div>
+      <div class="cell">
+        <span [innerHTML]="blogModel.longDescription | htmlSanitizer"></span>
+      </div>
+
+    </section>
+  </section>
+</section>

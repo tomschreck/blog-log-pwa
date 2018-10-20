@@ -11,6 +11,7 @@ import { BlogRoutingModule } from '@app/features/blog/blog-routing.module';
 
 // COMPONENTS
 import { BlogCreateComponent } from './pages/blog-create/blog-create.component';
+import { BlogDetailComponent } from './pages/blog-detail/blog-detail.component';
 import { BlogListComponent } from './pages/blog-list/blog-list.component';
 
 @NgModule({
@@ -25,6 +26,7 @@ import { BlogListComponent } from './pages/blog-list/blog-list.component';
   declarations:
     [
       BlogCreateComponent,
+      BlogDetailComponent,
       BlogListComponent
     ]
 })

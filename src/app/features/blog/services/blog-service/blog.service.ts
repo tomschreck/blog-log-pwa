@@ -16,8 +16,10 @@ import { MessageService } from '@app/core/services/messages/message.service';
 export class BlogService
 {
   private pendingBlogListSubject = new BehaviorSubject<BlogModel[]>(undefined);
+  private blogDetailSubject = new BehaviorSubject<BlogModel>(undefined);
 
   PendingBlogListStream = this.pendingBlogListSubject.asObservable();
+  BlogDetailStream = this.blogDetailSubject.asObservable();
 
   constructor
   (
@@ -37,7 +39,9 @@ export class BlogService
       blogTypeId: blogCreateModel.BlogType,
       shortDescription: blogCreateModel.ShortDescription,
       longDescription: blogCreateModel.LongDescription,
-      tagList: blogCreateModel.TagList
+      tagList: blogCreateModel.TagList,
+      latitude: blogCreateModel.Latitude,
+      longitude: blogCreateModel.Longitude
     };
 
     const formData: FormData = new FormData();
@@ -73,9 +77,29 @@ export class BlogService
           const list: BlogModel[] = BlogModel.ToList(rawData);
           this.pendingBlogListSubject.next(list);
 
-          console.log('PENDING BLOG LIST:', list);
+          // console.log('PENDING BLOG LIST:', list);
 
           return list;
+        }),
+        catchError( (err) => throwError(err) )
+      );
+  }
+
+  GetBlogDetail(id: string): Observable<BlogModel>
+  {
+    const url = UrlHelperService.GetBlogDetailUrl(id);
+
+    return this.httpService.Get(url)
+      .pipe
+      (
+        map((rawData: {}) =>
+        {
+          const model: BlogModel = new BlogModel(rawData);
+          this.blogDetailSubject.next(model);
+
+          console.log('BLOG DETAIL:', model);
+
+          return model;
         }),
         catchError( (err) => throwError(err) )
       );

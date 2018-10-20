@@ -12,13 +12,15 @@ export class BlogModel
   blogTypeName: string;
   shortDescription: string;
   longDescription: string;
+  latitude: number;
+  longitude: number;
   tagList: string[] = [];
   mediaAssetsList: MediaAssetModel[] = [];
   mediaAssetsProcessedTimestamp: Date;
   createdAt: Date;
   updatedAt: Date;
 
-  thumbNailUrl: string;
+  defaultMediaAssetModel: MediaAssetModel;
 
   constructor(rawJson?: any)
   {
@@ -26,8 +28,8 @@ export class BlogModel
     {
       FactoryModel.CreateIt<BlogModel>(this, rawJson);
 
-      this.thumbNailUrl = (this.mediaAssetsList && this.mediaAssetsList.length > 0) ? this.mediaAssetsList[0].thumb_url : undefined;
       this.blogTypeName = BlogTypeEnum[this.blogTypeId];
+      this.defaultMediaAssetModel = (this.mediaAssetsList && this.mediaAssetsList.length > 0) ? this.mediaAssetsList[0] : undefined;
     }
   }
 
