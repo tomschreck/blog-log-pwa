@@ -2,7 +2,8 @@ export const CONFIG =
   {
     KEYS:
     {
-      GoogleMap: 'AIzaSyB1Q58SyazwnyLc5AWicQv90_mlLtPWZpE'
+      MAPBOX: 'pk.eyJ1IjoidG9tc2NocmVjayIsImEiOiJjam5oZXFlNWwwYzQxM3NudjJncHdmajVlIn0.qHTVj3xgG59aReOauBMulQ',
+      TINYMCE: 'y40c23sjmnzx2i6c4gvjat7sgm2h92vc60rh2b3rzmijhrxn'
     },
     SETTINGS:
       {

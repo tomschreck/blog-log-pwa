@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
-import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NoWhitespaceValidator } from '@app/shared/form-library/validators/no-white-space/no-whitespace.validator';
 import { MatChipInputEvent } from '@angular/material';
@@ -9,6 +9,10 @@ import { BlogCreateModel } from '@app/models/blog/blog-create.model';
 
 import { IImage } from '@app/core/services/image-compressor/image.model';
 import { ImageUtilityService } from '@app/core/services/image-compressor/ImageUtilityService';
+import { MessageService } from '@app/core/services/messages/message.service';
+import { take } from 'rxjs/operators';
+import { CONFIG } from '@env/configuration';
+import { ScrollService } from '@app/core/services/scroll/scroll.service';
 
 @Component({
   selector: 'app-blog-create-form',
@@ -22,8 +26,10 @@ export class BlogCreateFormComponent implements OnInit, OnDestroy
   blogTypeEnum = BlogTypeEnum;
   processedImageList: IImage[];
   editorInit: {};
+  targetInput = 'input0';
+  tinyMCEKey = CONFIG.KEYS.TINYMCE;
 
-  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+  readonly separatorKeysCodes: number[] = [ ENTER, COMMA ];
 
   @Input() blogCreateModel: BlogCreateModel;
   @Output('onFormSubmit') formSubmitEventEmitter: EventEmitter<BlogCreateModel> = new EventEmitter<BlogCreateModel>();
@@ -31,7 +37,9 @@ export class BlogCreateFormComponent implements OnInit, OnDestroy
 
   constructor
   (
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private messageService: MessageService,
+    private scrollService: ScrollService
   )
   {
   }
@@ -45,16 +53,47 @@ export class BlogCreateFormComponent implements OnInit, OnDestroy
       mobile: {
         theme: 'mobile',
         plugins: [ 'autosave', 'lists', 'autolink' ]
-      }};
+      }
+    };
 
     if (navigator.geolocation)
     {
-      navigator.geolocation.getCurrentPosition((position) =>
-      {
-        // console.log('CURRENT POSITION:', position);
-        this.blogCreateModel.Latitude = position.coords.latitude;
-        this.blogCreateModel.Longitude = position.coords.longitude;
-      });
+      navigator.geolocation.getCurrentPosition(
+        (position) =>
+        {
+          // console.log('CURRENT POSITION:', position);
+          this.blogCreateModel.Latitude = position.coords.latitude;
+          this.blogCreateModel.Longitude = position.coords.longitude;
+        },
+        (error) =>
+        {
+          let errorMessage: string;
+
+          switch (error.code)
+          {
+            case error.PERMISSION_DENIED:
+              errorMessage = 'User denied the request for Geolocation.  You may need to turn on location services for browser.';
+              break;
+            case error.POSITION_UNAVAILABLE:
+              errorMessage = 'Location information is unavailable.';
+              break;
+            case error.TIMEOUT:
+              errorMessage = 'The request to get user location timed out.';
+              break;
+            default:
+              errorMessage = 'An unknown error occurred.';
+              break;
+          }
+
+          this.messageService.CreateErrorMessage('Geolocation Error', errorMessage)
+            .pipe(take(1))
+            .subscribe
+            (
+              () =>
+              {
+              }
+            );
+        });
     }
   }
 
@@ -102,17 +141,17 @@ export class BlogCreateFormComponent implements OnInit, OnDestroy
       this.processedImageList = this.processedImageList || [];
 
       const fileList: File[] = Array.from(event.target.files);
-      const imagesOnlyList: File[] = fileList.filter((item: File) => item.type.match(/^image\//) );
+      const imagesOnlyList: File[] = fileList.filter((item: File) => item.type.match(/^image\//));
 
       imagesOnlyList.map((item: File) =>
       {
         ImageUtilityService.convertFileToImage(item)
           .subscribe
           (
-            (processedItem: IImage) =>
-            {
-              this.processedImageList.push(processedItem);
-            }
+          (processedItem: IImage) =>
+          {
+            this.processedImageList.push(processedItem);
+          }
           );
       });
     }
@@ -162,6 +201,31 @@ export class BlogCreateFormComponent implements OnInit, OnDestroy
     }
   }
 
+  onChange(event: any)
+  {
+    const index = String(event.selectedIndex);
+    this.targetInput = `input${index}`;
+    this.setFocus();
+  }
+
+  resetForm1()
+  {
+    this.dataEntryForm1.reset();
+    this.dataEntryForm1.markAsPristine();
+    this.dataEntryForm1.markAsUntouched();
+    this.targetInput = `input0`;
+    this.setFocus();
+  }
+
+  resetForm2()
+  {
+    this.dataEntryForm2.reset();
+    this.dataEntryForm2.markAsPristine();
+    this.dataEntryForm2.markAsUntouched();
+    this.targetInput = `input1`;
+    this.setFocus();
+  }
+
 
   private initializeDataEntryForm()
   {
@@ -179,5 +243,24 @@ export class BlogCreateFormComponent implements OnInit, OnDestroy
         LongDescription: [ this.blogCreateModel.LongDescription ],
         TagList: [ this.blogCreateModel.TagList ]
       });
+  }
+
+  private setFocus()
+  {
+    const targetElem = document.getElementById(this.targetInput);
+
+    this.scrollService.scrollToTop();
+
+    setTimeout(function waitTargetElem()
+    {
+      if (document.body.contains(targetElem))
+      {
+        targetElem.focus();
+      }
+      else
+      {
+        setTimeout(waitTargetElem, 100);
+      }
+    }, 100);
   }
 }

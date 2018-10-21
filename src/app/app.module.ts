@@ -21,7 +21,6 @@ import { CONFIG } from '@env/configuration';
 import { SpinnerInterceptor } from '@core/interceptors/spinner.interceptor';
 
 // 3rd PARTY
-import { AgmCoreModule } from '@agm/core';
 import { NgxModelModule } from 'ngx-model';
 import { ToastrModule } from 'ngx-toastr';
 
@@ -42,7 +41,6 @@ import { ToastrModule } from 'ngx-toastr';
       SharedModule,
 
       // 3rd PARTY
-      AgmCoreModule.forRoot({ apiKey: CONFIG.KEYS.GoogleMap }),
       NgxModelModule,
       ToastrModule.forRoot
         (

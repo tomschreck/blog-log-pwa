@@ -1,0 +1,12 @@
+@import 'variables';
+
+:host
+{
+  display: block;
+  height: rem-calc(250);
+}
+
+.mapboxgl-map
+{
+  height: 100%;
+}

@@ -3,7 +3,7 @@
 <app-header></app-header>
 
 <section class="page-wrapper">
-  <router-outlet></router-outlet>
+  <router-outlet (activate)="onActivate($event)"></router-outlet>
 </section>
 
 <app-footer></app-footer>

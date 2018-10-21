@@ -1,4 +1,4 @@
-  <mat-horizontal-stepper linear>
+  <mat-horizontal-stepper linear (selectionChange)="onChange($event)">
 
     <!-- TITLE & TYPE -->
     <mat-step [stepControl]="dataEntryForm1">
@@ -11,7 +11,7 @@
             <!-- Title -->
             <div class="cell">
               <mat-form-field>
-                <input matInput autocomplete="off" appAutofocus placeholder="title" formControlName="Title" required>
+                <input id="input0" matInput autocomplete="off" appAutofocus placeholder="title" formControlName="Title" required>
                 <mat-error *ngIf="dataEntryForm1.controls['Title'].hasError('required') || dataEntryForm1.controls['Title'].hasError('whitespace')">
                   title is required
                 </mat-error>        
@@ -20,8 +20,8 @@
 
             <!-- BlogType -->
             <div class="cell">
-              <label>Blog Type</label>
-              <mat-button-toggle-group name="blogType" formControlName="BlogType" [value]="dataEntryForm1.controls['BlogType'].value" aria-label="Blog Type">
+              <label class="form-field-label">Blog Type *</label>
+              <mat-button-toggle-group name="blogType" formControlName="BlogType" [value]="dataEntryForm1.controls['BlogType'].value" aria-label="Blog Type" required>
                 <mat-button-toggle [value]="blogTypeEnum.Travel">Travel</mat-button-toggle>
                 <mat-button-toggle [value]="blogTypeEnum.Eat">Eat</mat-button-toggle>
                 <mat-button-toggle [value]="blogTypeEnum.Relax">Relax</mat-button-toggle>
@@ -30,10 +30,11 @@
 
             <!-- Map -->
             <div class="cell" *ngIf="blogCreateModel.Latitude && blogCreateModel.Longitude">
-              <app-map [latitude]="blogCreateModel.Latitude" [longitude]="blogCreateModel.Longitude"></app-map> 
+              <app-map-box [latitude]="blogCreateModel.Latitude" [longitude]="blogCreateModel.Longitude"></app-map-box>
             </div>
 
             <div class="cell text-right button-container">
+              <button mat-button type="button" (click)="resetForm1()" [disabled]="!dataEntryForm1.dirty">Reset</button>
               <button mat-raised-button type="button" [disabled]="!dataEntryForm1.valid" matStepperNext>Next</button>
             </div>
           </section>
@@ -49,12 +50,12 @@
         <ng-template matStepLabel>About</ng-template>
 
         <section class="grid-container">
-          <section class="grid-y grid-padding-y-bottom">
+          <section class="grid-y grid-padding-y">
 
             <!-- ShortDescription -->
             <div class="cell">
               <mat-form-field>
-                <textarea matInput placeholder="short description" formControlName="ShortDescription" required></textarea>
+                <textarea id="input1" matInput placeholder="short description" formControlName="ShortDescription" required></textarea>
 
                 <mat-error *ngIf="dataEntryForm2.controls['ShortDescription'].hasError('required') || dataEntryForm2.controls['ShortDescription'].hasError('whitespace')">
                   short description is required
@@ -64,7 +65,8 @@
 
             <!-- LongDescription -->
             <div class="cell">
-              <editor formControlName="LongDescription" apiKey="y40c23sjmnzx2i6c4gvjat7sgm2h92vc60rh2b3rzmijhrxn" [init]="editorInit"></editor>
+              <label class="form-field-label">long description (click icon for editor)</label>
+              <editor formControlName="LongDescription" apiKey="tinyMCEKey" [init]="editorInit"></editor>
             </div>
 
             <!-- TagList -->
@@ -88,6 +90,7 @@
             </div>
 
             <div class="cell text-right button-container">
+              <button mat-button type="button" (click)="resetForm2()" [disabled]="!dataEntryForm2.dirty">Reset</button>
               <button mat-button matStepperPrevious type="button">Back</button>
               <button mat-raised-button type="button" [disabled]="!dataEntryForm2.valid" matStepperNext>Next</button>
             </div>
@@ -108,7 +111,7 @@
 
           <!-- Select Images Button -->
           <div class="cell">
-            <input type="file" accept="image/*" #fileInput id="file-input" multiple (change)="onImagesSelected($event)">
+            <input type="file" id="input2" accept="image/*" #fileInput id="file-input" multiple (change)="onImagesSelected($event)">
             <button mat-raised-button color="primary" (click)="fileInput.click()">Select Photo(s)</button>
             <button mat-button color="primary" (click)="onResetFileSelection()" *ngIf="processedImageList">reset</button>
           </div>            
@@ -147,6 +150,7 @@
       <h3>Form 1</h3>
       <pre>Is form valid: {{dataEntryForm1.valid | json}}</pre>
       <pre>form values: <br>{{dataEntryForm1.value | json}}</pre>
+      <pre>Is form dirty: <br>{{dataEntryForm1.dirty | json}}</pre>
     </div>
 
   </div>

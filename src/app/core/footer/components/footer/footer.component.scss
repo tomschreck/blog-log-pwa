@@ -5,30 +5,12 @@
   background-color: $white;
   border-top: border(default);
   display: block;
-  padding: rem-calc(10) 0;
+  padding: rem-calc(10) 0;  
+  z-index: 200;
 }
 
 svg
 {
   display: block;
   margin: auto;
-}
-
-a
-{
-  &:hover
-  {
-  }
-
-  &.active
-  {
-
-    &:hover
-    {
-    }    
-
-      svg
-      {
-      }    
-  }
 }

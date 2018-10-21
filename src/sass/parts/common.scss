@@ -26,3 +26,8 @@ a
   cursor: pointer;
   text-decoration: none;
 }
+
+.tinymce-mobile-outer-container .tinymce-mobile-disabled-mask
+{
+  background: rgba(51,51,51,0.05) !important;
+}

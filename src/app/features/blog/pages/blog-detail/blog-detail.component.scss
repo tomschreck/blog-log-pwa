@@ -1,0 +1,20 @@
+@import 'variables';
+
+:host
+{
+  display: block;
+}
+
+app-map-box
+{
+  margin-left: rem-calc(-16);
+  margin-right: rem-calc(-16);   
+}
+
+::ng-deep
+{
+  p
+  {
+    margin: rem-calc(14) 0 !important;
+  }
+}

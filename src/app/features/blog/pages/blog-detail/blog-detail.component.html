@@ -2,11 +2,11 @@
   <app-page-title [pageTitle]="blogModel.title"></app-page-title>
 
   <section class="grid-container">
-    <section class="grid-y grid-margin-y">
+    <section class="grid-y grid-margin-y-bottom">
 
       <!-- MAP -->
       <div class="cell">
-        <app-map [latitude]="blogModel.latitude" [longitude]="blogModel.longitude"></app-map> 
+        <app-map-box [latitude]="blogModel.latitude" [longitude]="blogModel.longitude"></app-map-box>
       </div>
 
       <!-- IMAGES -->
@@ -18,9 +18,7 @@
       <div class="cell">
         {{blogModel.shortDescription}}
       </div>
-      <div class="cell">
-        <span [innerHTML]="blogModel.longDescription | htmlSanitizer"></span>
-      </div>
+      <div class="cell" [innerHTML]="blogModel.longDescription | htmlSanitizer"></div>
 
     </section>
   </section>

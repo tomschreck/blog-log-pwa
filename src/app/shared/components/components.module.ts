@@ -11,6 +11,7 @@ import { ImageComponent } from './media/image/image.component';
 import { PageTitleComponent } from '@app/shared/components/page-title/page-title.component';
 import { SpinnerComponent } from '@app/shared/components/spinner/spinner.component';
 import { ImageSliderComponent } from './media/image-slider/image-slider.component';
+import { MapBoxComponent } from './map-box/map-box.component';
 
 @NgModule({
   imports:
@@ -24,6 +25,7 @@ import { ImageSliderComponent } from './media/image-slider/image-slider.componen
   [
     ImageComponent,
     ImageSliderComponent,
+    MapBoxComponent,
     PageTitleComponent,
     SpinnerComponent
   ],
@@ -31,6 +33,7 @@ import { ImageSliderComponent } from './media/image-slider/image-slider.componen
   [
     ImageComponent,
     ImageSliderComponent,
+    MapBoxComponent,
     PageTitleComponent,
     SpinnerComponent,
   ],
