@@ -10,7 +10,8 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "firebase": "firebase deploy --project blog-log-pwa",
-    "deploy": "npm run build:prod && npm run firebase"
+    "deploy": "npm run build:prod && npm run firebase",
+    "open:prod": "npm run build:prod && cd dist/blog-log-pwa && http-server -o"
   },
   "private": true,
   "dependencies": {
@@ -28,6 +29,7 @@
     "@angular/router": "^6.1.0",
     "@angular/service-worker": "^6.1.0",
     "@fortawesome/fontawesome-free": "^5.2.0",
+    "@ngx-pwa/local-storage": "^6.2.0",
     "@tinymce/tinymce-angular": "^2.3.1",
     "@wishtack/rx-scavenger": "^1.0.1",
     "auth0-js": "^9.7.3",

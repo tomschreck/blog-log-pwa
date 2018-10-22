@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 // COMPONENTS
 import { BlogCreateComponent } from '@app/features/blog/pages/blog-create/blog-create.component';
+import { BlogCreateOfflineComponent } from '@app/features/blog/pages/blog-create-offline/blog-create-offline.component';
 import { BlogDetailComponent } from '@app/features/blog/pages/blog-detail/blog-detail.component';
 import { BlogListComponent } from '@app/features/blog/pages/blog-list/blog-list.component';
 
@@ -26,6 +27,13 @@ const routes: Routes =
       path: 'create',
       data: { title: 'Create New Blog' },
       component: BlogCreateComponent,
+      pathMatch: 'full'
+    },
+
+    {
+      path: 'create-offline',
+      data: { title: 'Create New Blog' },
+      component: BlogCreateOfflineComponent,
       pathMatch: 'full'
     },
 

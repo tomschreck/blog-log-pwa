@@ -11,6 +11,7 @@ import { BlogRoutingModule } from '@app/features/blog/blog-routing.module';
 
 // COMPONENTS
 import { BlogCreateComponent } from './pages/blog-create/blog-create.component';
+import { BlogCreateOfflineComponent } from './pages/blog-create-offline/blog-create-offline.component';
 import { BlogDetailComponent } from './pages/blog-detail/blog-detail.component';
 import { BlogListComponent } from './pages/blog-list/blog-list.component';
 
@@ -26,6 +27,7 @@ import { BlogListComponent } from './pages/blog-list/blog-list.component';
   declarations:
     [
       BlogCreateComponent,
+      BlogCreateOfflineComponent,
       BlogDetailComponent,
       BlogListComponent
     ]

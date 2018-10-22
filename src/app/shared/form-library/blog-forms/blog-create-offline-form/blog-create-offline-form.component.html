@@ -1,0 +1,170 @@
+  <mat-horizontal-stepper linear (selectionChange)="onChange($event)">
+
+    <!-- TITLE & TYPE -->
+    <mat-step [stepControl]="dataEntryForm1">
+      <form [formGroup]="dataEntryForm1 "novalidate autocomplete="off">
+        <ng-template matStepLabel>Title</ng-template>
+
+        <section class="grid-container">
+          <section class="grid-y grid-padding-y">
+
+            <!-- Title -->
+            <div class="cell">
+              <mat-form-field>
+                <input id="input0" matInput autocomplete="off" appAutofocus placeholder="title" formControlName="Title" required>
+                <mat-error *ngIf="dataEntryForm1.controls['Title'].hasError('required') || dataEntryForm1.controls['Title'].hasError('whitespace')">
+                  title is required
+                </mat-error>        
+              </mat-form-field>    
+            </div>
+
+            <!-- BlogType -->
+            <div class="cell">
+              <label class="form-field-label">Blog Type *</label>
+              <mat-button-toggle-group name="blogType" formControlName="BlogType" [value]="dataEntryForm1.controls['BlogType'].value" aria-label="Blog Type" required>
+                <mat-button-toggle [value]="blogTypeEnum.Travel">Travel</mat-button-toggle>
+                <mat-button-toggle [value]="blogTypeEnum.Eat">Eat</mat-button-toggle>
+                <mat-button-toggle [value]="blogTypeEnum.Relax">Relax</mat-button-toggle>
+              </mat-button-toggle-group>
+            </div>
+
+            <!-- Map -->
+            <div class="cell">
+              You will need to edit this blog item when connectivity occurs in order to acquire location.
+            </div>
+
+            <div class="cell text-right button-container">
+              <button mat-button type="button" (click)="resetForm1()" [disabled]="!dataEntryForm1.dirty">Reset</button>
+              <button mat-raised-button type="button" [disabled]="!dataEntryForm1.valid" matStepperNext>Next</button>
+            </div>
+          </section>
+        </section>
+
+      </form>
+    </mat-step>
+
+
+    <!-- DESCRIPTIONS & TAGS -->
+    <mat-step [stepControl]="dataEntryForm2">
+      <form [formGroup]="dataEntryForm2 "novalidate autocomplete="off">
+        <ng-template matStepLabel>About</ng-template>
+
+        <section class="grid-container">
+          <section class="grid-y grid-padding-y">
+
+            <!-- ShortDescription -->
+            <div class="cell">
+              <mat-form-field>
+                <textarea id="input1" matInput placeholder="short description" formControlName="ShortDescription" required></textarea>
+
+                <mat-error *ngIf="dataEntryForm2.controls['ShortDescription'].hasError('required') || dataEntryForm2.controls['ShortDescription'].hasError('whitespace')">
+                  short description is required
+                </mat-error>        
+              </mat-form-field>
+            </div>
+
+            <!-- LongDescription -->
+            <div class="cell">
+              <mat-form-field>
+                <textarea matInput placeholder="long description" formControlName="LongDescription"></textarea>
+              </mat-form-field>              
+            </div>
+
+            <!-- TagList -->
+            <div class="cell">
+              <!-- <mat-form-field>
+                <textarea matInput placeholder="tag list" formControlName="TagList"></textarea>      
+              </mat-form-field> -->
+              <mat-form-field>
+                <mat-chip-list #chipList>
+                  <mat-chip *ngFor="let item of blogCreateModel.TagList" (removed)="removeTagItem(item)">
+                    {{item}}
+                    <mat-icon matChipRemove>cancel</mat-icon>
+                  </mat-chip>
+                  <input placeholder="tag list..."
+                        [matChipInputFor]="chipList"
+                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                        [matChipInputAddOnBlur]="true"
+                        (matChipInputTokenEnd)="addTagItem($event)">
+                </mat-chip-list>
+              </mat-form-field>              
+            </div>
+
+            <div class="cell text-right button-container">
+              <button mat-button type="button" (click)="resetForm2()" [disabled]="!dataEntryForm2.dirty">Reset</button>
+              <button mat-button matStepperPrevious type="button">Back</button>
+              <button mat-raised-button type="button" [disabled]="!dataEntryForm2.valid" matStepperNext>Next</button>
+            </div>
+          </section>
+        </section>
+
+      </form>
+    </mat-step>
+
+
+
+    <!-- IMAGE LIST -->
+    <mat-step>
+      <ng-template matStepLabel>Photos</ng-template>
+
+      <section class="grid-container">
+        <section class="grid-y grid-padding-y">
+
+          <!-- Select Images Button -->
+          <div class="cell">
+            <input type="file" id="input2" accept="image/*" #fileInput id="file-input" multiple (change)="onImagesSelected($event)">
+            <button mat-raised-button color="primary" (click)="fileInput.click()">Select Photo(s)</button>
+            <button mat-button color="primary" (click)="onResetFileSelection()" *ngIf="processedImageList">reset</button>
+          </div>            
+
+
+          <!-- ImageList -->
+          <div class="cell text-center" *ngIf="processedImageList">
+            <label>{{processedImageList.length}} photos selected:</label>
+            
+            <div class="image-container" *ngFor="let item of processedImageList">
+              <div class="image" [ngStyle]="{'background-image': 'url(' + item.imageDataUrl + ')'}"></div>
+              <mat-checkbox [checked]="true" (click)="onRemoveImageClick(item)"></mat-checkbox>
+            </div>     
+          </div>
+
+
+          <!-- SAVE LOG -->
+          <div class="cell text-right button-container">
+            <button mat-button matStepperPrevious type="button">Back</button>
+            <button mat-raised-button type="button" [disabled]="!processedImageList" (click)="onFormSubmit()">Save Log</button>
+          </div>   
+
+        </section>
+      </section>
+      
+    </mat-step>
+
+  </mat-horizontal-stepper>
+
+  
+<!-- <section class="grid-y">
+
+  <div class="cell">
+
+    <div class="margin-20">
+      <h3>Form 1</h3>
+      <pre>Is form valid: {{dataEntryForm1.valid | json}}</pre>
+      <pre>form values: <br>{{dataEntryForm1.value | json}}</pre>
+      <pre>Is form dirty: <br>{{dataEntryForm1.dirty | json}}</pre>
+    </div>
+
+  </div>
+
+
+  <div class="cell">
+
+    <div class="margin-20">
+      <h3>Form 2</h3>
+      <pre>Is form valid: {{dataEntryForm2.valid | json}}</pre>
+      <pre>form values: <br>{{dataEntryForm2.value | json}}</pre>
+    </div>
+
+  </div>
+    
+</section> -->

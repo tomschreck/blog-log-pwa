@@ -19,6 +19,7 @@ export class BlogModel
   mediaAssetsProcessedTimestamp: Date;
   createdAt: Date;
   updatedAt: Date;
+  isOfflineCachedItem: boolean;
 
   defaultMediaAssetModel: MediaAssetModel;
 

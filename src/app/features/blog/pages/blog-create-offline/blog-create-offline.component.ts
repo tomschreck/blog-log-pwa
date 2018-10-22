@@ -8,18 +8,18 @@ import { NavigationService } from '@app/core/services/navigation/navigation.serv
 import { MessageService } from '@app/core/services/messages/message.service';
 
 @Component({
-  selector: 'app-blog-create',
-  templateUrl: './blog-create.component.html',
-  styleUrls: [ './blog-create.component.scss' ]
+  selector: 'app-blog-create-offline',
+  templateUrl: './blog-create-offline.component.html',
+  styleUrls: [ './blog-create-offline.component.scss' ]
 })
-export class BlogCreateComponent implements OnInit
+export class BlogCreateOfflineComponent implements OnInit
 {
   constructor
-  (
+    (
     private blogService: BlogService,
     private messageService: MessageService,
     private navigationService: NavigationService
-  )
+    )
   {
   }
 
@@ -29,16 +29,21 @@ export class BlogCreateComponent implements OnInit
 
   onFormSubmit(blogCreateModel: BlogCreateModel)
   {
-    this.blogService.CreateBlog(blogCreateModel)
-        .pipe
-        (
-          mergeMap(() => this.messageService.CreateSuccessMessage('Success', `Successfully created blog entry.`)),
-          map(() =>
+    this.blogService.CacheOfflineBlog(blogCreateModel)
+      .pipe
+      (
+        mergeMap(() => this.messageService.CreateSuccessMessage('Success', `Successfully cached blog entry offline.  Entry will be uploaded when next connected online.`)),
+        map(
+          () =>
           {
             this.navigationService.GoToHomePage();
-          }),
-          catchError( (err) => throwError(err) )
-        ).subscribe();
+          }
+        ),
+        catchError((err) =>
+        {
+          return throwError(err);
+        })
+      ).subscribe();
   }
 
   onFormCancel()

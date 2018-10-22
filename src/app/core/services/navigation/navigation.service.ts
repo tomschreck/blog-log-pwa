@@ -10,7 +10,7 @@ export class NavigationService
 
   ROUTES =
   {
-    Home: '/home',
+    Home: '/',
     Blog: '/blog',
     Login: '/login',
     Logout: '/logout',

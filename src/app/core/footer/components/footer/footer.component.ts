@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ConnectionService } from '@app/core/services/connection-service/connection.service';
 
 @Component({
   selector: 'app-footer',
@@ -7,11 +8,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FooterComponent implements OnInit
 {
+  isConnected: boolean = true;
 
-  constructor() { }
+  constructor
+  (
+    private connectionService: ConnectionService
+  )
+  {
+  }
 
   ngOnInit()
   {
+    this.connectionService.ConnectionMonitorStream
+      .subscribe
+      (
+        (isConnected) =>
+        {
+          this.isConnected = isConnected;
+          console.log('FOOTER IS CONNECTED:', this.isConnected);
+        }
+      );
   }
 
 }

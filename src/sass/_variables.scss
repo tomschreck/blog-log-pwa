@@ -88,7 +88,8 @@ $heights: () !default;
 $heights: map-merge(
 	(
 		nav-header:											rem-calc(50),
-		page-bottom-offset:							rem-calc(80)
+		page-bottom-offset:							rem-calc(80),
+		copyright:											rem-calc(30)
 	), $heights);
 
 

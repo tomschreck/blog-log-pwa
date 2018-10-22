@@ -9,25 +9,20 @@ import { BlogCreateModel } from '@app/models/blog/blog-create.model';
 
 import { IImage } from '@app/core/services/image-compressor/image.model';
 import { ImageUtilityService } from '@app/core/services/image-compressor/ImageUtilityService';
-import { MessageService } from '@app/core/services/messages/message.service';
-import { take } from 'rxjs/operators';
-import { CONFIG } from '@env/configuration';
 import { ScrollService } from '@app/core/services/scroll/scroll.service';
 
 @Component({
-  selector: 'app-blog-create-form',
-  templateUrl: './blog-create-form.component.html',
-  styleUrls: [ './blog-create-form.component.scss' ]
+  selector: 'app-blog-create-offline-form',
+  templateUrl: './blog-create-offline-form.component.html',
+  styleUrls: [ './blog-create-offline-form.component.scss' ]
 })
-export class BlogCreateFormComponent implements OnInit, OnDestroy
+export class BlogCreateOfflineFormComponent implements OnInit, OnDestroy
 {
   dataEntryForm1: FormGroup;
   dataEntryForm2: FormGroup;
   blogTypeEnum = BlogTypeEnum;
   processedImageList: IImage[];
-  editorInit: {};
   targetInput = 'input0';
-  tinyMCEKey = CONFIG.KEYS.TINYMCE;
 
   readonly separatorKeysCodes: number[] = [ ENTER, COMMA ];
 
@@ -38,7 +33,6 @@ export class BlogCreateFormComponent implements OnInit, OnDestroy
   constructor
   (
     private formBuilder: FormBuilder,
-    private messageService: MessageService,
     private scrollService: ScrollService
   )
   {
@@ -47,54 +41,6 @@ export class BlogCreateFormComponent implements OnInit, OnDestroy
   ngOnInit()
   {
     this.initializeDataEntryForm();
-
-    this.editorInit = {
-      theme: 'modern',
-      mobile: {
-        theme: 'mobile',
-        plugins: [ 'autosave', 'lists', 'autolink' ]
-      }
-    };
-
-    if (navigator.geolocation)
-    {
-      navigator.geolocation.getCurrentPosition(
-        (position) =>
-        {
-          // console.log('CURRENT POSITION:', position);
-          this.blogCreateModel.Latitude = position.coords.latitude;
-          this.blogCreateModel.Longitude = position.coords.longitude;
-        },
-        (error) =>
-        {
-          let errorMessage: string;
-
-          switch (error.code)
-          {
-            case error.PERMISSION_DENIED:
-              errorMessage = 'User denied the request for Geolocation.  You may need to turn on location services for browser.';
-              break;
-            case error.POSITION_UNAVAILABLE:
-              errorMessage = 'Location information is unavailable.';
-              break;
-            case error.TIMEOUT:
-              errorMessage = 'The request to get user location timed out.';
-              break;
-            default:
-              errorMessage = 'An unknown error occurred.';
-              break;
-          }
-
-          this.messageService.CreateErrorMessage('Geolocation Error', errorMessage)
-            .pipe(take(1))
-            .subscribe
-            (
-              () =>
-              {
-              }
-            );
-        });
-    }
   }
 
   ngOnDestroy()

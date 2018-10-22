@@ -1,19 +1,27 @@
 <section class="grid-container">
   <section class="grid-x text-center">
     <div class="cell auto">
-      <a [routerLink]="'/home'" 
+      <a [routerLink]="'/'" 
         [routerLinkActive]="'active'" 
         [routerLinkActiveOptions]="{exact:true}">
         <i class="fas fa-home"></i>
         Home
       </a>      
     </div>
-    <div class="cell auto">
+    <div class="cell auto" *ngIf="(isConnected)">
       <a [routerLink]="'/blog/create'" 
         [routerLinkActive]="'active'" 
         [routerLinkActiveOptions]="{exact:true}">
         <i class="fas fa-plus-square"></i>
         Add
+      </a>      
+    </div>
+    <div class="cell auto" *ngIf="(!isConnected)">
+      <a [routerLink]="'/blog/create-offline'" 
+        [routerLinkActive]="'active'" 
+        [routerLinkActiveOptions]="{exact:true}">
+        <i class="fas fa-plus-square"></i>
+        Add OL
       </a>      
     </div>
     <div class="cell auto">
@@ -23,10 +31,12 @@
       </a>
     </div>
     <div class="cell auto">
-      <a>
-        <i class="fas fa-headphones"></i>
-        Another...
-      </a>
+      <a [routerLink]="'/about'" 
+        [routerLinkActive]="'active'" 
+        [routerLinkActiveOptions]="{exact:true}">
+        <i class="fas fa-plus-square"></i>
+        About
+      </a> 
     </div>    
   </section>
 </section>

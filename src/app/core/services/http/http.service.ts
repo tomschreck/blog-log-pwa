@@ -32,7 +32,7 @@ export class HttpService
       this.http.get(url, { headers: headers })
         .pipe
         (
-        take(1)
+          take(1)
         )
         .subscribe
         (
@@ -58,7 +58,7 @@ export class HttpService
       this.http.post(url, data, { headers: headers })
         .pipe
         (
-        take(1)
+          take(1)
         )
         .subscribe
         (

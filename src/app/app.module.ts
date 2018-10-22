@@ -15,8 +15,6 @@ import { Four04Module } from '@app/features/four04/four04.module';
 import { MaterialModule } from '@app/material/material.module';
 import { SharedModule } from '@app/shared/shared.module';
 
-import { CONFIG } from '@env/configuration';
-
 // interceptors
 import { SpinnerInterceptor } from '@core/interceptors/spinner.interceptor';
 

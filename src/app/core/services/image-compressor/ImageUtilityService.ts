@@ -27,7 +27,6 @@ export class ImageUtilityService
   {
     resizeOptions = resizeOptions || new ResizeOptions();
 
-
     return Observable.create(observer =>
     {
       ImageUtilityService.readFile(file)

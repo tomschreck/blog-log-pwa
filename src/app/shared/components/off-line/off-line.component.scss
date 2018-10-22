@@ -1,0 +1,21 @@
+@import 'variables';
+
+:host
+{
+  background-color: $warn;
+  color: $white;
+  display: block;
+  height: rem-calc(24);
+  position: fixed;
+  top: height(nav-header);
+  left: 0;
+  right: 0;
+  font-size: rem-calc(14);
+  line-height: rem-calc(24);
+  z-index: 200;
+
+  &.hidden
+  {
+    display: none;
+  }  
+}

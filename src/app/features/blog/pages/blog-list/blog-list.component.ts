@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { SwUpdate } from '@angular/service-worker';
+
 import { BlogService } from '@app/features/blog/services/blog-service/blog.service';
 
 @Component({
@@ -12,7 +14,8 @@ export class BlogListComponent implements OnInit
 
   constructor
   (
-    public blogService: BlogService
+    public blogService: BlogService,
+    private swUpdate: SwUpdate
   )
   {
   }
@@ -20,6 +23,10 @@ export class BlogListComponent implements OnInit
   ngOnInit()
   {
     this.title = 'Pending Blog Items';
-  }
 
+    this.swUpdate.available.subscribe((event) =>
+    {
+      this.swUpdate.activateUpdate().then(() => document.location.reload());
+    });
+  }
 }

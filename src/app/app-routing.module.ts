@@ -12,13 +12,7 @@ const routes: Routes =
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'home'
-  },
-  {
-    path: 'home',
-    loadChildren: './features/blog/blog.module#BlogModule',
-    data: { title: 'Home' },
-    // canActivate: [ IsAuthenticatedAndHasARoleGuard ]
+    redirectTo: 'blog'
   },
   {
     path: 'login',
@@ -40,6 +34,11 @@ const routes: Routes =
   },
 
   // LAZY LOADED:
+  {
+    path: 'about',
+    loadChildren: './features/about/about.module#AboutModule',
+    data: { title: 'About Blog Log' }
+  },
   {
     path: 'blog',
     loadChildren: './features/blog/blog.module#BlogModule',

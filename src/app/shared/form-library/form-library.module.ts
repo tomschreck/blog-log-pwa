@@ -14,6 +14,7 @@ import { BlogCreateFormComponent } from '@app/shared/form-library/blog-forms/blo
 // 3rd PARTY
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { ComponentsModule } from '@app/shared/components/components.module';
+import { BlogCreateOfflineFormComponent } from './blog-forms/blog-create-offline-form/blog-create-offline-form.component';
 
 @NgModule({
   imports:
@@ -32,11 +33,13 @@ import { ComponentsModule } from '@app/shared/components/components.module';
   declarations:
   [
     FormButtonsComponent,
-    BlogCreateFormComponent
+    BlogCreateFormComponent,
+    BlogCreateOfflineFormComponent
   ],
   exports:
   [
-    BlogCreateFormComponent
+    BlogCreateFormComponent,
+    BlogCreateOfflineFormComponent
   ],
   providers:
   [
