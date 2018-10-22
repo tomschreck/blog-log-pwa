@@ -5,7 +5,7 @@
     <section class="grid-y grid-margin-y-bottom">
 
       <!-- MAP -->
-      <div class="cell">
+      <div class="cell" *ngIf="(blogModel.latitude && blogModel.longitude)">
         <app-map-box [latitude]="blogModel.latitude" [longitude]="blogModel.longitude"></app-map-box>
       </div>
 

@@ -53,15 +53,15 @@ export class BlogCreateOfflineFormComponent implements OnInit, OnDestroy
     {
       if (this.formSubmitEventEmitter.observers.length > 0)
       {
-        this.blogCreateModel.Title = this.dataEntryForm1.controls.Title.value;
-        this.blogCreateModel.BlogType = this.dataEntryForm1.controls.BlogType.value;
-        this.blogCreateModel.ShortDescription = this.dataEntryForm2.controls.ShortDescription.value;
-        this.blogCreateModel.LongDescription = this.dataEntryForm2.controls.LongDescription.value;
-        this.blogCreateModel.TagList = this.dataEntryForm2.controls.TagList.value;
+        this.blogCreateModel.title = this.dataEntryForm1.controls.title.value;
+        this.blogCreateModel.blogTypeId = this.dataEntryForm1.controls.blogTypeId.value;
+        this.blogCreateModel.shortDescription = this.dataEntryForm2.controls.shortDescription.value;
+        this.blogCreateModel.longDescription = this.dataEntryForm2.controls.longDescription.value;
+        this.blogCreateModel.tagList = this.dataEntryForm2.controls.tagList.value;
 
         if (this.processedImageList && this.processedImageList.length > 0)
         {
-          this.blogCreateModel.ImageList = this.processedImageList.map((item: IImage) => item.file);
+          this.blogCreateModel.imageList = this.processedImageList.map((item: IImage) => item.file);
         }
 
         // console.log('BLOG CREATE MODEL:', this.blogCreateModel);
@@ -121,11 +121,11 @@ export class BlogCreateOfflineFormComponent implements OnInit, OnDestroy
     // ADD TAG
     if ((value || '').trim())
     {
-      const existingTagList: string[] = this.dataEntryForm2.controls.TagList.value || [];
+      const existingTagList: string[] = this.dataEntryForm2.controls.tagList.value || [];
 
       existingTagList.push(value);
 
-      this.dataEntryForm2.controls.TagList.patchValue(existingTagList);
+      this.dataEntryForm2.controls.tagList.patchValue(existingTagList);
     }
 
     // RESET INPUT VALUE
@@ -137,13 +137,13 @@ export class BlogCreateOfflineFormComponent implements OnInit, OnDestroy
 
   removeTagItem(tag: string): void
   {
-    const existingTagList: string[] = this.dataEntryForm2.controls.TagList.value;
+    const existingTagList: string[] = this.dataEntryForm2.controls.tagList.value;
     const index = existingTagList.indexOf(tag);
 
     if (index >= 0)
     {
       existingTagList.splice(index, 1);
-      this.dataEntryForm2.controls.TagList.patchValue(existingTagList);
+      this.dataEntryForm2.controls.tagList.patchValue(existingTagList);
     }
   }
 
@@ -179,15 +179,15 @@ export class BlogCreateOfflineFormComponent implements OnInit, OnDestroy
 
     this.dataEntryForm1 = this.formBuilder.group
       ({
-        Title: [ this.blogCreateModel.Title, Validators.compose([ Validators.required, NoWhitespaceValidator ]) ],
-        BlogType: [ this.blogCreateModel.BlogType, Validators.compose([ Validators.required ]) ],
+        title: [ this.blogCreateModel.title, Validators.compose([ Validators.required, NoWhitespaceValidator ]) ],
+        blogTypeId: [ this.blogCreateModel.blogTypeId, Validators.compose([ Validators.required ]) ],
       });
 
     this.dataEntryForm2 = this.formBuilder.group
       ({
-        ShortDescription: [ this.blogCreateModel.ShortDescription ],
-        LongDescription: [ this.blogCreateModel.LongDescription ],
-        TagList: [ this.blogCreateModel.TagList ]
+        shortDescription: [ this.blogCreateModel.shortDescription ],
+        longDescription: [ this.blogCreateModel.longDescription ],
+        tagList: [ this.blogCreateModel.tagList ]
       });
   }
 

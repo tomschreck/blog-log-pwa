@@ -9,6 +9,7 @@ import { HttpService } from '@app/core/services/http/http.service';
 import { UrlHelperService } from '@app/core/services/helpers/url-helper.service';
 import { ConnectionService } from '@app/core/services/connection-service/connection.service';
 import { LocalStorage } from '@ngx-pwa/local-storage';
+import { NavigationService } from '@app/core/services/navigation/navigation.service';
 
 
 @Injectable({
@@ -26,9 +27,13 @@ export class BlogService
   (
     private connectionService: ConnectionService,
     private localStorage: LocalStorage,
-    private httpService: HttpService
+    private httpService: HttpService,
+    private navigationService: NavigationService
   )
   {
+    /*
+    LISTEN FOR WHEN CONNECTION IS ESTABLISHED TO UPLOAD ANY OFFLINE BLOG ENTRY ITEMS FROM CACHE
+    */
     this.connectionService.ConnectionMonitorStream
     .subscribe
     (
@@ -39,7 +44,8 @@ export class BlogService
           this.checkForCachedBlogEntries()
             .pipe
             (
-              map(data => this.uploadOfflineBlogEntryItems(data))
+              mergeMap(data => this.uploadOfflineBlogEntryItems(data)),
+              mergeMap(() => this.PendingBlogList())
             )
             .subscribe();
         }
@@ -53,21 +59,21 @@ export class BlogService
 
     const data =
     {
-      title: blogCreateModel.Title,
-      blogTypeId: blogCreateModel.BlogType,
-      shortDescription: blogCreateModel.ShortDescription,
-      longDescription: blogCreateModel.LongDescription,
-      tagList: blogCreateModel.TagList,
-      latitude: blogCreateModel.Latitude,
-      longitude: blogCreateModel.Longitude
+      title: blogCreateModel.title,
+      blogTypeId: blogCreateModel.blogTypeId,
+      shortDescription: blogCreateModel.shortDescription,
+      longDescription: blogCreateModel.longDescription,
+      tagList: blogCreateModel.tagList,
+      latitude: blogCreateModel.latitude,
+      longitude: blogCreateModel.longitude
     };
 
     const formData: FormData = new FormData();
     formData.append('data', JSON.stringify(data));
 
-    if (blogCreateModel.ImageList)
+    if (blogCreateModel.imageList)
     {
-      blogCreateModel.ImageList.map((item: File) =>
+      blogCreateModel.imageList.map((item: File) =>
       {
         formData.append('blogFile', item, item.name);
       });
@@ -88,15 +94,15 @@ export class BlogService
   {
     return Observable.create(observer =>
     {
-      blogCreateModel.ArrayBuffer = [];
+      blogCreateModel.arrayBuffer = [];
 
       // loop over each image in BlogCreateModel and convert each image to arrayBuffer
-      of(blogCreateModel.ImageList)
+      of(blogCreateModel.imageList)
         .pipe
         (
           mergeAll(),
           mergeMap((iterativeFile: File) => this.blobToArrayBuffer(iterativeFile)),
-          map((buffer) => { blogCreateModel.ArrayBuffer.push(buffer); })
+          map((buffer) => { blogCreateModel.arrayBuffer.push(buffer); })
         )
         .subscribe
         (
@@ -107,8 +113,8 @@ export class BlogService
             // NOW READY TO SAVE BlogCreateModel TO CACHE...
             // console.log('0. READY TO CACHE...', blogCreateModel);
 
-            // WIPE OUT IMAGE LIST AS IT HAS ALREADY BEEN PROCESSED INTO ArrayBuffer
-            blogCreateModel.ImageList = undefined;
+            // WIPE OUT IMAGE LIST AS IT HAS ALREADY BEEN PROCESSED INTO arrayBuffer
+            blogCreateModel.imageList = undefined;
 
             /*
             CHECK IF THERE ARE ANY EXISTING CACHED BLOG ITEMS
@@ -186,7 +192,7 @@ export class BlogService
               });
             }
 
-            // console.log('FORKED RESULTS:', results);
+            console.log('FORKED RESULTS:', results);
 
             this.pendingBlogListSubject.next(results.pendingBlogList);
 
@@ -216,45 +222,61 @@ export class BlogService
   }
 
 
+
   private checkForCachedBlogEntries(): Observable<any>
   {
     return this.localStorage.getItem('blogList');
   }
 
-  private uploadOfflineBlogEntryItems(offlineBlogItems: {}[])
+  private uploadOfflineBlogEntryItems(offlineBlogItems: {}[]): Observable<any>
   {
     // console.log('OFFLINE BLOG ITEMS TO BE PROCESSED: ', offlineBlogItems);
 
-    of(offlineBlogItems)
-      .pipe
-      (
-        mergeAll(),
-        map((cachedBlogItem) =>
-        {
-          const blogCreateModel = new BlogCreateModel(cachedBlogItem);
-          blogCreateModel.ImageList = [];
-
-          blogCreateModel.ArrayBuffer.map((bufferItem: {}) =>
+    return Observable.create(observer =>
+    {
+      of(offlineBlogItems)
+        .pipe
+        (
+          mergeAll(),
+          map((cachedBlogItem) =>
           {
-            const reconstitutedBlob = this.arrayBufferToBlob(bufferItem);
-            blogCreateModel.ImageList.push(reconstitutedBlob);
-          });
+            const blogCreateModel = new BlogCreateModel(cachedBlogItem);
+            blogCreateModel.imageList = [];
 
-          // console.log('CACHED BLOG ITEM TO SAVE', blogCreateModel);
+            blogCreateModel.arrayBuffer.map((bufferItem: {}) =>
+            {
+              const reconstitutedBlob = this.arrayBufferToBlob(bufferItem);
+              blogCreateModel.imageList.push(reconstitutedBlob);
+            });
 
-          this.CreateBlog(blogCreateModel).subscribe();
-        })
-      )
-      .subscribe
-      (
-        () => {},
-        error => {},
-        () =>
-        {
-          // console.log('ALL OFFLINE ITEMS PROCESSED: ');
-          this.localStorage.removeItem('blogList').subscribe(() => {});
-        }
-      );
+            // console.log('CACHED BLOG ITEM TO SAVE', blogCreateModel);
+
+            this.CreateBlog(blogCreateModel).subscribe();
+          })
+        )
+        .subscribe
+        (
+          () => {},
+          error => {},
+          () =>
+          {
+            // console.log('ALL OFFLINE ITEMS PROCESSED: ');
+            this.localStorage.removeItem('blogList')
+                .subscribe
+                (
+                  () => {},
+                  () => {},
+                  () =>
+                  {
+                    this.pendingBlogListSubject.next(undefined);
+
+                    observer.next();
+                    observer.complete();
+                  }
+                );
+          }
+        );
+    });
   }
 
   private blobToArrayBuffer(file: File)

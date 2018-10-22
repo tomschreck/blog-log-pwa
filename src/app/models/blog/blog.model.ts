@@ -5,8 +5,6 @@ import { MediaAssetModel } from '@app/models/blog/media-asset.model';
 export class BlogModel
 {
   _id: string;
-  hasMediaAssetsBeenProcessed: boolean;
-  hasBlogEntryBeenPublished: boolean;
   title: string;
   blogTypeId: number;
   blogTypeName: string;
@@ -19,7 +17,9 @@ export class BlogModel
   mediaAssetsProcessedTimestamp: Date;
   createdAt: Date;
   updatedAt: Date;
-  isOfflineCachedItem: boolean;
+  hasMediaAssetsBeenProcessed: boolean;
+  hasBlogEntryBeenPublished: boolean;
+  isOfflineCachedItem: boolean = false;
 
   defaultMediaAssetModel: MediaAssetModel;
 

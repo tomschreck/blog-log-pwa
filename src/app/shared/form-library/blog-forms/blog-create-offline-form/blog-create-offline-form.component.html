@@ -8,20 +8,20 @@
         <section class="grid-container">
           <section class="grid-y grid-padding-y">
 
-            <!-- Title -->
+            <!-- title -->
             <div class="cell">
               <mat-form-field>
-                <input id="input0" matInput autocomplete="off" appAutofocus placeholder="title" formControlName="Title" required>
-                <mat-error *ngIf="dataEntryForm1.controls['Title'].hasError('required') || dataEntryForm1.controls['Title'].hasError('whitespace')">
+                <input id="input0" matInput autocomplete="off" appAutofocus placeholder="title" formControlName="title" required>
+                <mat-error *ngIf="dataEntryForm1.controls['title'].hasError('required') || dataEntryForm1.controls['title'].hasError('whitespace')">
                   title is required
                 </mat-error>        
               </mat-form-field>    
             </div>
 
-            <!-- BlogType -->
+            <!-- blogTypeId -->
             <div class="cell">
               <label class="form-field-label">Blog Type *</label>
-              <mat-button-toggle-group name="blogType" formControlName="BlogType" [value]="dataEntryForm1.controls['BlogType'].value" aria-label="Blog Type" required>
+              <mat-button-toggle-group name="blogTypeId" formControlName="blogTypeId" [value]="dataEntryForm1.controls['blogTypeId'].value" aria-label="Blog Type" required>
                 <mat-button-toggle [value]="blogTypeEnum.Travel">Travel</mat-button-toggle>
                 <mat-button-toggle [value]="blogTypeEnum.Eat">Eat</mat-button-toggle>
                 <mat-button-toggle [value]="blogTypeEnum.Relax">Relax</mat-button-toggle>
@@ -52,32 +52,29 @@
         <section class="grid-container">
           <section class="grid-y grid-padding-y">
 
-            <!-- ShortDescription -->
+            <!-- shortDescription -->
             <div class="cell">
               <mat-form-field>
-                <textarea id="input1" matInput placeholder="short description" formControlName="ShortDescription" required></textarea>
+                <textarea id="input1" matInput placeholder="short description" formControlName="shortDescription" required></textarea>
 
-                <mat-error *ngIf="dataEntryForm2.controls['ShortDescription'].hasError('required') || dataEntryForm2.controls['ShortDescription'].hasError('whitespace')">
+                <mat-error *ngIf="dataEntryForm2.controls['shortDescription'].hasError('required') || dataEntryForm2.controls['shortDescription'].hasError('whitespace')">
                   short description is required
                 </mat-error>        
               </mat-form-field>
             </div>
 
-            <!-- LongDescription -->
+            <!-- longDescription -->
             <div class="cell">
               <mat-form-field>
-                <textarea matInput placeholder="long description" formControlName="LongDescription"></textarea>
+                <textarea matInput placeholder="long description" formControlName="longDescription"></textarea>
               </mat-form-field>              
             </div>
 
-            <!-- TagList -->
+            <!-- tagList -->
             <div class="cell">
-              <!-- <mat-form-field>
-                <textarea matInput placeholder="tag list" formControlName="TagList"></textarea>      
-              </mat-form-field> -->
               <mat-form-field>
                 <mat-chip-list #chipList>
-                  <mat-chip *ngFor="let item of blogCreateModel.TagList" (removed)="removeTagItem(item)">
+                  <mat-chip *ngFor="let item of blogCreateModel.tagList" (removed)="removeTagItem(item)">
                     {{item}}
                     <mat-icon matChipRemove>cancel</mat-icon>
                   </mat-chip>
@@ -118,7 +115,7 @@
           </div>            
 
 
-          <!-- ImageList -->
+          <!-- imageList -->
           <div class="cell text-center" *ngIf="processedImageList">
             <label>{{processedImageList.length}} photos selected:</label>
             

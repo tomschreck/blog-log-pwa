@@ -3,15 +3,15 @@ import { FactoryModel } from '@app/models/factory.model';
 
 export class BlogCreateModel
 {
-  Title: string;
-  BlogType: BlogTypeEnum = BlogTypeEnum.Travel;
-  ShortDescription: string;
-  LongDescription: string;
-  TagList: string[] = [];
-  ImageList: File[] = [];
-  ArrayBuffer: {}[] = [];
-  Latitude: number;
-  Longitude: number;
+  title: string;
+  blogTypeId: BlogTypeEnum = BlogTypeEnum.Travel;
+  shortDescription: string;
+  longDescription: string;
+  tagList: string[] = [];
+  imageList: File[] = [];
+  arrayBuffer: {}[] = [];
+  latitude: number;
+  longitude: number;
 
   constructor(rawJson?: any)
   {
