@@ -11,10 +11,9 @@
     "e2e": "ng e2e",
     "open:prod": "npm run build:prod && cd dist/blog-log-pwa && http-server -o",
     "firebase": "firebase deploy --project blog-log-pwa",
-    "checkin": "npm run commit && npm run version",
+    "checkin": "npm run commit && npm run version && git push",
     "commit": "git add . && git-cz",
     "version": "standard-version && node version.js",
-    "push": "npm run commit && npm run version && git push",
     "deploy": "npm run build:prod && npm run firebase"
   },
   "private": true,
