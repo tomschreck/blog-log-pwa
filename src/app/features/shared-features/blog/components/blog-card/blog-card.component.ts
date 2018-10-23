@@ -3,6 +3,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { BlogModel } from '@app/models/blog/blog.model';
 
 import { NavigationService } from '@app/core/services/navigation/navigation.service';
+import { BlogService } from '@app/features/blog/services/blog-service/blog.service';
 
 @Component({
   selector: 'app-blog-card',
@@ -15,6 +16,7 @@ export class BlogCardComponent implements OnInit
 
   constructor
   (
+    private blogService: BlogService,
     private navigationService: NavigationService
   )
   {
@@ -24,8 +26,9 @@ export class BlogCardComponent implements OnInit
   {
   }
 
-  GoToBlogDetailPage()
+  goToBlogDetailPage()
   {
+    this.blogService.SetBlogDetail(this.blogModel);
     this.navigationService.GoToBlogDetailPage(this.blogModel._id);
   }
 }

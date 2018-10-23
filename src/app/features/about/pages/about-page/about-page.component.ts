@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from '@env/environment';
+import { VERSION } from '@env/version';
 
 @Component({
   selector: 'app-about-page',
@@ -15,7 +16,7 @@ export class AboutPageComponent implements OnInit
 
   ngOnInit()
   {
-    this.siteNameAndVersion = `${environment.name} - ${environment.version}`;
+    this.siteNameAndVersion = `${environment.name} - ${VERSION.version}`;
     this.copyrightYear = (new Date()).getFullYear();
   }
 

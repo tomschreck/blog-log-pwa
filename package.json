@@ -9,12 +9,13 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "firebase": "firebase deploy --project blog-log-pwa",
-    "deploy": "npm run build:prod && npm run firebase",
     "open:prod": "npm run build:prod && cd dist/blog-log-pwa && http-server -o",
+    "firebase": "firebase deploy --project blog-log-pwa",
+    "checkin": "npm run commit && npm run version",
     "commit": "git add . && git-cz",
     "version": "standard-version && node version.js",
-    "push": "npm run commit && npm run version && git push"
+    "push": "npm run commit && npm run version && git push",
+    "deploy": "npm run push && npm run build:prod && npm run firebase"
   },
   "private": true,
   "dependencies": {
@@ -76,5 +77,10 @@
     "ts-node": "~7.0.0",
     "tslint": "~5.11.0",
     "typescript": "~2.9.2"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
   }
 }

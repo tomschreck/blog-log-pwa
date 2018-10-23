@@ -205,20 +205,39 @@ export class BlogService
 
   GetBlogDetail(id: string): Observable<BlogModel>
   {
-    const url = UrlHelperService.GetBlogDetailUrl(id);
+    return Observable.create(observer =>
+    {
+      const cachedBlogModel = this.blogDetailSubject.value;
 
-    return this.httpService.Get(url)
-      .pipe
-      (
-        map((rawData: {}) =>
-        {
-          const model: BlogModel = new BlogModel(rawData);
-          this.blogDetailSubject.next(model);
+      if (cachedBlogModel && cachedBlogModel._id === id)
+      {
+        observer.next(cachedBlogModel);
+        observer.complete();
+      }
+      else
+      {
+        const url = UrlHelperService.GetBlogDetailUrl(id);
 
-          return model;
-        }),
-        catchError( (err) => throwError(err) )
-      );
+        this.httpService.Get(url)
+          .pipe
+          (
+            map((rawData: {}) =>
+            {
+              const model: BlogModel = new BlogModel(rawData);
+              this.blogDetailSubject.next(model);
+
+              observer.next(model);
+              observer.complete();
+            }),
+            catchError( (err) => throwError(err) )
+          );
+      }
+    });
+  }
+
+  SetBlogDetail(blogModel: BlogModel)
+  {
+    this.blogDetailSubject.next(blogModel);
   }
 
 
