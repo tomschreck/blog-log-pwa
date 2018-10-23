@@ -15,7 +15,7 @@
     "commit": "git add . && git-cz",
     "version": "standard-version && node version.js",
     "push": "npm run commit && npm run version && git push",
-    "deploy": "npm run push && npm run build:prod && npm run firebase"
+    "deploy": "npm run build:prod && npm run firebase"
   },
   "private": true,
   "dependencies": {
