@@ -2,7 +2,7 @@
   "name": "blog-log-pwa",
   "short_name": "blog log",
   "theme_color": "#f55321",
-  "background_color": "#fafafa",
+  "background_color": "#f55321",
   "display": "standalone",
   "scope": "/",
   "start_url": "/",

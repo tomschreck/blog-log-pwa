@@ -5,24 +5,10 @@
   display: block;
 }
 
-app-header
-{
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-}
-
 .page-wrapper
 {
-  margin-top: height(nav-header);
+  border: solid 0.5px deeppink;
+  height: 100vh;
+  margin-top: height(page-header-total);
   margin-bottom: height(page-bottom-offset);
-}
-
-app-footer
-{
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
 }

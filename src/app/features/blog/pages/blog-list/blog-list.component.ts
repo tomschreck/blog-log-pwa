@@ -22,7 +22,7 @@ export class BlogListComponent implements OnInit
 
   ngOnInit()
   {
-    this.title = 'Pending Blog Items';
+    this.title = 'Pending Blog Items!!';
 
     this.swUpdate.available.subscribe((event) =>
     {

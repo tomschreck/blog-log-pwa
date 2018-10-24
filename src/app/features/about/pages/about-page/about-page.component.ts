@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { environment } from '@env/environment';
 import { VERSION } from '@env/version';
 
+import { DeviceService } from '@app/core/services/device/device.service';
+
 @Component({
   selector: 'app-about-page',
   templateUrl: './about-page.component.html',
@@ -12,7 +14,12 @@ export class AboutPageComponent implements OnInit
   siteNameAndVersion: string;
   copyrightYear: number;
 
-  constructor() { }
+  constructor
+  (
+    public deviceService: DeviceService
+  )
+  {
+  }
 
   ngOnInit()
   {

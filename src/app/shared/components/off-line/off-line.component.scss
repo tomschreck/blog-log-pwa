@@ -5,13 +5,13 @@
   background-color: $warn;
   color: $white;
   display: block;
-  height: rem-calc(24);
+  height: height(offline-message);
   position: fixed;
   top: height(nav-header);
   left: 0;
   right: 0;
   font-size: rem-calc(14);
-  line-height: rem-calc(24);
+  line-height: height(offline-message);
   z-index: 200;
 
   &.hidden

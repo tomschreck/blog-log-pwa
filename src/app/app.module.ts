@@ -10,6 +10,7 @@ import { environment } from '../environments/environment';
 
 // application
 import { AuthModule } from '@app/features/auth/auth.module';
+import { BreakpointModule } from '@app/core/services/breakpoint.module';
 import { CoreModule } from '@app/core/core.module';
 import { Four04Module } from '@app/features/four04/four04.module';
 import { MaterialModule } from '@app/material/material.module';
@@ -19,6 +20,7 @@ import { SharedModule } from '@app/shared/shared.module';
 import { SpinnerInterceptor } from '@core/interceptors/spinner.interceptor';
 
 // 3rd PARTY
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgxModelModule } from 'ngx-model';
 import { ToastrModule } from 'ngx-toastr';
 
@@ -33,12 +35,14 @@ import { ToastrModule } from 'ngx-toastr';
 
       // application
       AuthModule,
+      BreakpointModule.forRoot(),
       CoreModule,
       Four04Module,
       MaterialModule,
       SharedModule,
 
       // 3rd PARTY
+      FlexLayoutModule,
       NgxModelModule,
       ToastrModule.forRoot
         (

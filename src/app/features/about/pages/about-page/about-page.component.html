@@ -1,11 +1,65 @@
 <section class="grid-container">
-  <section class="grid-y grid-padding-y text-center">
-    <div class="cell auto">
+  <section class="grid-y grid-padding-y grid-padding-y-bottom">
+    <div class="cell">
       {{siteNameAndVersion}}
     </div>
 
-    <div class="cell auto">
+    <div class="cell" *ngIf="deviceService.DeviceModelStream | async; let deviceModel">
+      <section class="grid-y">
+        <div class="cell">
+          <i class="far" [ngClass]="{'fa-check-square': deviceModel.isSmall, 'fa-square': !deviceModel.isSmall }"></i>
+          Small
+        </div>
+        <div class="cell">
+          <i class="far" [ngClass]="{'fa-check-square': deviceModel.isMedium, 'fa-square': !deviceModel.isMedium }"></i>
+          Medium
+        </div>
+        <div class="cell">
+          <i class="far" [ngClass]="{'fa-check-square': deviceModel.isMediumAndUp, 'fa-square': !deviceModel.isMediumAndUp }"></i>
+          Medium Up
+        </div>
+        <div class="cell">
+          <i class="far" [ngClass]="{'fa-check-square': deviceModel.isLarge, 'fa-square': !deviceModel.isLarge }"></i>
+          Large
+        </div>
+        <div class="cell">
+          <i class="far" [ngClass]="{'fa-check-square': deviceModel.isExtraLarge, 'fa-square': !deviceModel.isExtraLarge }"></i>
+          Extra Large
+        </div>
+        <div class="cell">
+          <i class="far" [ngClass]="{'fa-check-square': deviceModel.isExtraLargeAndUp, 'fa-square': !deviceModel.isExtraLargeAndUp }"></i>
+          Extra Large And Up
+        </div>
+        <div class="cell">
+          <i class="far" [ngClass]="{'fa-check-square': deviceModel.isLandscape, 'fa-square': !deviceModel.isLandscape }"></i>
+          Landscape
+        </div>
+        <div class="cell">
+          <i class="far" [ngClass]="{'fa-check-square': deviceModel.isPortrait, 'fa-square': !deviceModel.isPortrait }"></i>
+          Portrait
+        </div>
+        <div class="cell">
+          <i class="far" [ngClass]="{'fa-check-square': deviceModel.isRetina2, 'fa-square': !deviceModel.isRetina2 }"></i>
+          Retina2
+        </div>
+        <div class="cell">
+          <i class="far" [ngClass]="{'fa-check-square': deviceModel.isRetina3, 'fa-square': !deviceModel.isRetina3 }"></i>
+          Retina3
+        </div>
+        <div class="cell">
+          <i class="far" [ngClass]="{'fa-check-square': deviceModel.isMobile, 'fa-square': !deviceModel.isMobile }"></i>
+          Mobile
+        </div>
+        <div class="cell">
+          <i class="far" [ngClass]="{'fa-check-square': deviceModel.isStandalone, 'fa-square': !deviceModel.isStandalone }"></i>
+          Standalone
+        </div>
+      </section>
+    </div>
+
+    <div class="cell">
       copyright {{copyrightYear}}.  All rights reserved.
     </div>
+
   </section>
 </section>

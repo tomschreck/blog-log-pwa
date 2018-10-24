@@ -6,6 +6,16 @@
   display: block;
   height: height(nav-header);
 	z-index: 200;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+	/* Status bar height on iOS 10 */
+	padding-top: 20px;
+	/* Status bar height on iOS 11.0 */
+	padding-top: constant(safe-area-inset-top);
+	/* Status bar height on iOS 11+ */
+	padding-top: env(safe-area-inset-top);	
 }
 
 h1
