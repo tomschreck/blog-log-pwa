@@ -1,6 +1,6 @@
 {
   "name": "blog-log-pwa",
-  "version": "0.0.58",
+  "version": "0.1.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
