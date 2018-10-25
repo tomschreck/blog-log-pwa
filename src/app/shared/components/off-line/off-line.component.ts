@@ -1,13 +1,16 @@
-import { Component, OnInit, HostBinding } from '@angular/core';
+import { Component, OnInit, HostBinding, OnDestroy } from '@angular/core';
 import { ConnectionService } from '@app/core/services/connection-service/connection.service';
+import { Scavenger } from '@wishtack/rx-scavenger';
 
 @Component({
   selector: 'app-off-line',
   templateUrl: './off-line.component.html',
   styleUrls: [ './off-line.component.scss' ]
 })
-export class OffLineComponent implements OnInit
+export class OffLineComponent implements OnInit, OnDestroy
 {
+  private _scavenger = new Scavenger(this);
+
   @HostBinding('class.hidden') isConnected: boolean = true;
 
   constructor
@@ -20,12 +23,17 @@ export class OffLineComponent implements OnInit
   ngOnInit()
   {
     this.connectionService.ConnectionMonitorStream
-    .subscribe
-    (
-      (isConnected) =>
-      {
-        this.isConnected = isConnected;
-      }
-    );
+        .pipe(this._scavenger.collect())
+        .subscribe
+        (
+          (isConnected: boolean) =>
+          {
+            this.isConnected = isConnected;
+          }
+        );
+  }
+
+  ngOnDestroy()
+  {
   }
 }

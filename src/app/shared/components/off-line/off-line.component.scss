@@ -2,12 +2,12 @@
 
 :host
 {
-  background-color: $warn;
+  background-color: $color-primary-hover;
   color: $white;
   display: block;
   height: height(offline-message);
   position: fixed;
-  top: height(nav-header);
+  top: $height-nav-header;
   left: 0;
   right: 0;
   font-size: rem-calc(14);

@@ -3,11 +3,44 @@
 :host
 {
   display: block;
+
+  .page-wrapper
+  {
+    // border: solid 5px deeppink;
+    height: 100vh;
+    margin-top: $height-nav-header;
+    margin-bottom: height(page-bottom-offset);
+  }
+
+  &.standalone
+  {
+    .page-wrapper
+    {
+      // border: solid 5px orange;
+      margin-top: $height-mobile-status-bar + $height-nav-header;
+    }    
+  }
+
+  &.offLine
+  {
+    .page-wrapper
+    {
+      // border: solid 5px dodgerblue;
+      margin-top: $height-nav-header + $height-offline-message;
+    }    
+  }
+
+  &.standalone.offLine
+  {
+    app-off-line
+    {
+      top: $height-mobile-status-bar + $height-nav-header;
+    }
+    .page-wrapper
+    {
+      // border: solid 5px lime;
+      margin-top: $height-mobile-status-bar + $height-nav-header + $height-offline-message;
+    }    
+  }  
 }
 
-.page-wrapper
-{
-  height: 100vh;
-  margin-top: height(page-header-total);
-  margin-bottom: height(page-bottom-offset);
-}

@@ -33,8 +33,6 @@ a
 	{
 		cursor: pointer;
 		display: block;
-		padding: rem-calc(24) 0;
-		width: rem-calc(35);
 
 		span,
 		span:before,
@@ -93,7 +91,8 @@ a
 	{
 		color: $white;
 		font: font(thin);
-		font-size: rem-calc(16);
+		font-size: rem-calc(20);
+		line-height: rem-calc(42);
 
 		&.menu
 		{

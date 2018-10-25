@@ -87,7 +87,6 @@ HEIGHTS
 $height-mobile-status-bar: rem-calc(20);
 $height-nav-header: rem-calc(44);
 $height-offline-message: rem-calc(24);
-$height-page-header-total: $height-mobile-status-bar + $height-nav-header + $height-offline-message;
 
 $heights: () !default;
 $heights: map-merge(
@@ -95,7 +94,6 @@ $heights: map-merge(
 		mobile-status-bar:							$height-mobile-status-bar,
 		nav-header:											$height-nav-header,
 		offline-message:								$height-offline-message,
-		page-header-total:							$height-page-header-total,
 		page-bottom-offset:							rem-calc(80),
 		copyright:											rem-calc(30)
 	), $heights);
